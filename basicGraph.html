@@ -24,8 +24,6 @@ var svg = d3.select("#my_dataviz")
   .attr("transform",
         "translate(" + margin.left + "," + margin.top + ")");
 
-// var width = 640,
-//     height = 400;
     
 var nodes = [
           { x:   width*.25, y: height*.5, id: 0},
@@ -35,18 +33,13 @@ var nodes = [
 ];
 
 var links = [
-          { source: 0, target: 1 },
-          { source: 0, target: 2 },
-          { source: 2, target: 3 },
-          { source: 1, target: 3 },
-          { source: 1, target: 2 }
+          { source: 0, target: 1, capacity: 5 },
+          { source: 0, target: 2, capacity: 1},
+          { source: 2, target: 3, capacity: 3},
+          { source: 1, target: 3, capacity: 5},
+          { source: 1, target: 2, capacity: 4}
 ];
 
-// var graph = d3.select('#graph');
-
-// var svg = graph.append('svg')
-//                .attr('width', width)
-//                .attr('height', height);
        
 
 svg.append("svg:defs").append("svg:marker")
@@ -81,6 +74,17 @@ svg.selectAll()
   .attr("cx", function(d) { return d.x; })
   .attr("cy", function(d) { return d.y; })
   .attr("r", 8);
+
+
+svg.selectAll("text")
+.data(links)
+.enter()
+.append("text")
+.attr("x", function(d){ return (nodes[d.target].x + nodes[d.source].x)/2})
+.attr("y", function(d){ return (nodes[d.target].y + nodes[d.source].y)/2})
+.text(function(d){return d.capacity})
+.attr("font-size", "20px")
+.attr("fill","red")
 
 
 
