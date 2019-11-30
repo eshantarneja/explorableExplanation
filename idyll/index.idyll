@@ -26,12 +26,16 @@ Configuration can be done via the `idyll` field in `package.json`.
 [Scroller currentStep:state]
 
   [Graphic className:"d3-component-container"]
-    [CustomD3Component className:"d3-component" state:`state+1` /]
+    [CustomD3Component className:"d3-component" state:`state` /]
   [/Graphic]
+
+  [Display value:state /]
 
   [Step]
   
     ## Markup
+
+    [Display value:state /]
 
     Idyll is based on Markdown.
 
@@ -71,6 +75,8 @@ Configuration can be done via the `idyll` field in `package.json`.
   [Step]
     ## Components
 
+    [Display value:state /]
+
     Components can be embedded using a bracket syntax:
 
     ```
@@ -100,6 +106,8 @@ Configuration can be done via the `idyll` field in `package.json`.
 
   [Step]
     ## Interactivity
+
+    [Display value:state /]
 
     Here is how you can instantiate a variable and bind it to a component:
 
