@@ -76,7 +76,7 @@ svg.selectAll()
   .attr("r", 8);
 
 
-svg.selectAll("text")
+labels = svg.selectAll("text")
 .data(links)
 .enter()
 .append("text")
@@ -87,10 +87,19 @@ svg.selectAll("text")
 .attr("fill","red")
 
 
-svg.selectAll("text")
+
+header = svg.selectAll()
+.data(links)
+.enter()
+.append("text")
+.text("VERTICES")
+.attr("x", 100)
+.attr("y",100)
+
+header
 .transition()
 .delay(1000)
-.attr("fill","blue")
+.text("EDGES")
 
 
 

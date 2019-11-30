@@ -84,16 +84,18 @@ class CustomD3Component extends D3Component {
     .text(function(d){return d.capacity})
     .attr("font-size", "40px")
     .attr("fill","red")
+    .attr("class","capacity")
 
 
-
-    
-
-    // svg
-    //   .append('circle')
-    //   .attr('r', 20)
-    //   .attr('cx', Math.random() * size)
-    //   .attr('cy', Math.random() * size);
+    var header = svg.selectAll()
+    .data(links)
+    .enter()
+    .append("text")
+    .attr("class","header")
+    .text("NETWORK FLOW")
+    .attr("x", 50)
+    .attr("y",50)
+    .attr("font-size", "40px")
 
 
   }
@@ -102,13 +104,8 @@ class CustomD3Component extends D3Component {
 
   update(props, oldProps) {
     if (props.state==0){
-      this.svg
-      .selectAll('text')
-      .transition()
-      .attr("fill","green")
-
-      console.log("state=0")
-      
+      this.step0(props,oldProps)
+      this.step0(props,oldProps)  
     }
     else if (props.state==1){
       this.svg
@@ -133,6 +130,89 @@ class CustomD3Component extends D3Component {
       console.log("state=else")
     
     }
+
+  }
+
+  step0(props, oldProps) {
+
+    var t1 = 2000
+    var t2 = 4000
+    var t3 = 6000
+    var t4 = 8000
+
+    // show vertices only
+    this.svg
+    .selectAll(".header")
+    .transition()
+    .delay(t1)
+    .text("VERTICES")
+
+    this.svg
+    .selectAll("line")
+    .transition()
+    .delay(t1)
+    .attr("opacity",0)
+
+    this.svg
+    .selectAll(".capacity")
+    .transition()
+    .delay(t1)
+    .attr("opacity",0)
+
+    // show edges only
+
+    this.svg
+    .selectAll("line")
+    .transition()
+    .delay(t2)
+    .attr("opacity",1)
+
+    this.svg
+    .selectAll("circle")
+    .transition()
+    .delay(t2)
+    .attr("opacity",0)
+
+    this.svg
+    .selectAll(".header")
+    .transition()
+    .delay(t2)
+    .text("EDGES")
+
+    //show capacities
+
+    this.svg
+    .selectAll(".header")
+    .transition()
+    .delay(t3)
+    .text("CAPACITIES")
+
+    this.svg
+    .selectAll(".capacity")
+    .transition()
+    .delay(t3)
+    .attr("opacity",1)
+
+
+    // show full graph
+
+    this.svg
+    .selectAll("circle")
+    .transition()
+    .delay(t4)
+    .attr("opacity",1)
+
+    this.svg
+    .selectAll(".header")
+    .transition()
+    .delay(t4)
+    .text("NETWORK FLOW")
+
+
+
+
+
+
 
   }
 }
