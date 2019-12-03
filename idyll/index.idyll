@@ -15,8 +15,24 @@
 This post was written using a component-based library called Idyll.  It was created with the primary purpose of explaining network flow and the maximum flow algorithm.  As you explore, you will see various buttons and sliders to interact with.  You may use them to alter values and attributes on screen.  Enjoy!
 
 
+## Introduction
 
-[var name:"state" value:-1 /]
+Generally speaking, the maximum flow problem can be stated as:
+
+Given a set of nodes and edges comprising a network, and a fixed maximum capacity for every edge, what is the maximum amount of flow that can pass through the network? 
+
+The maximum flow of a network is defined as the maximum amount of flow that the network would allow to pass from source to sink. There are numerous existing algorithms that solve this particular problem; however, the one we wish to cover is the Ford-Fulkerson algorithm. 
+
+#### Real World Applications (Note: add clicking interaction)
+
+1. Baseball Elimination
+2. Airline scheduling
+3. Circulation-demand problem
+4. Fairness in car sharing (carpool)
+
+You can learn more about these applications and how they apply to the maximum flow problem [link text:"here" url:"https://en.wikipedia.org/wiki/Maximum_flow_problem#Real_world_applications" /].
+
+[var name:"state" value:1 /]
 
 [Scroller currentStep:state]
 
@@ -28,7 +44,7 @@ This post was written using a component-based library called Idyll.  It was crea
   
     ## Understanding Network Graphs (wait for animation)
 
-    The key parts of network graphs are nodes, edges, and capacities. 
+    As mentioned previously, the key parts of network graphs are nodes, edges, and capacities. 
 
     Every edge within the network is directed (flow can only move one direction through an edge).  
     Additionally, each edge has a fixed capacity. The amount of flow through an edge cannot exceed the capacity of the edge.  
@@ -38,6 +54,55 @@ This post was written using a component-based library called Idyll.  It was crea
 
   [/Step]
 
+[/Scroller]
+
+## Network Flow
+
+In graph theory, a flow network is defined as a directed graph involving a source(S), a sink(T), and additional nodes that are connected with edges. Each edge has an individual capacity which is the maximum limit of flow that edge could allow. The following graphic is an example of a flow network with flow = 0: 
+
+  [Graphic]
+     [img src:"static/images/example_network.png" /]
+  [/Graphic]
+
+For those who are more mathematically inclined, you may think of a flow network as a tuple, [Equation] G = (V, E, s, t, c) [/Equation].  Essentially, it is comprised of a Digraph [Equation] (V,E) [/Equation] with source, [Equation] s \in V [/Equation], and sink, [Equation] t \in V [/Equation]. Additionally, for each edge, [Equation] e \in E [/Equation], there exists a non-negative capacity [Equation] c_e [/Equation]. A flow through an edge is defined as [Equation] f_e [/Equation].
+
+Note: In the all of the graphics in article, we will use the notation [Equation] f_e / c_e [/Equation] (i.e. 4/10) to denote the flow and capacity of each edge. 
+
+
+## Maximum Flow Problem
+
+Define: An st-flow, [Equation] f [/Equation], is a function that satisfies:
+* (Capacity) - For each [Equation] e \in E:  0 \leq f_e \leq c_e [/Equation]      
+* (Flow conservation) - For each [Equation] v \in V - ({s,t}):  \Sigma f_e [/Equation]  (e out of s) [Equation] - \Sigma f_e  [/Equation] (e in to s)      
+
+The value of flow, [Equation] f [/Equation], is: 
+
+* val(f) = [Equation]  \Sigma f_e [/Equation]  (e out of s) [Equation] -  \Sigma f_e  [/Equation] (e in to s)
+
+In other words, a maximum possible flow from s to t exists based on these two constraints:
+* Flow on an edge doesn’t exceed the given capacity of the edge.
+* Incoming flow is equal to outgoing flow for every vertex except s and t. 
+
+
+## Ford-Fulkerson Algorithm
+
+It was developed by L. R. Ford, Jr. and D. R. Fulkerson in 1956. A pseudocode for this algorithm is given below.  The inputs required are graph G, source node S, and sink node T.
+
+```
+function: FordFulkerson(Graph G, Node S, Node T):
+    Initialise flow in all edges to 0
+    while (there exists an augmenting path(P) between S and T in residual network graph):
+        Augment flow between S to T along the path P
+        Update residual network graph
+    return
+```
+
+### Example
+
+
+
+
+[Scroller currentStep:state]
   [Step]
     ## Components
 
