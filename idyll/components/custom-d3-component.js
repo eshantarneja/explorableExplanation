@@ -2,15 +2,15 @@ const React = require('react');
 const D3Component = require('idyll-d3-component');
 const d3 = require('d3');
 
-const size = 700;
+const size = 850;
 
 class CustomD3Component extends D3Component {
   initialize(node, props) {
     const svg = (this.svg = d3.select(node).append('svg'));
 
     var margin = {top: 0, right: 0, bottom: 0, left: 0},
-    width = 700 - margin.left - margin.right,
-    height = 700 - margin.top - margin.bottom;
+    width = 850 - margin.left - margin.right,
+    height = 850 - margin.top - margin.bottom;
 
     svg
     .attr('viewBox', `0 0 ${width} ${height}`)
@@ -32,11 +32,11 @@ class CustomD3Component extends D3Component {
     ];
 
     var links = [
-    { source: 0, target: 1, capacity: 5, id:0},
-    { source: 0, target: 2, capacity: 1, id:1},
-    { source: 2, target: 3, capacity: 3, id:2},
-    { source: 1, target: 3, capacity: 5, id:3},
-    { source: 1, target: 2, capacity: 4, id:4}
+    { source: 0, target: 1, capacity: "0/5", id:0},
+    { source: 0, target: 2, capacity: "0/1", id:1},
+    { source: 2, target: 3, capacity: "0/3", id:2},
+    { source: 1, target: 3, capacity: "0/5", id:3},
+    { source: 1, target: 2, capacity: "0/4", id:4}
     ];
 
     let lineId = 0;
@@ -80,19 +80,9 @@ class CustomD3Component extends D3Component {
     .data(links)
     .enter()
     .append("text")
-    // .attr("x", placeText(nodes[d.target],nodes[d.source], 'x') )
-    // .attr("y", placeText(nodes[d.target],nodes[d.source], 'y'))
-    // .attr("x", function(d){ return (nodes[d.target].x + nodes[d.source].x)/2;})
-    // .attr("y", function(d){
-    //   if (nodes[d.source].y < nodes[d.target].y){
-    //     return nodes[d.target].y + nodes[d.source].y/2
-    //   }
-    //   else{
-    //     return nodes[d.target].y + nodes[d.source].y/2
-    //   }
-    // })
     .attr("x", function(d){ return (nodes[d.target].x + nodes[d.source].x)/2})
     .attr("y", function(d){ return (nodes[d.target].y + nodes[d.source].y)/2})
+    .attr("id", function(d) { return "text"+d.id})
     .text(function(d){return d.capacity})
     .attr("font-size", "40px")
     .attr("fill","red")
@@ -125,6 +115,10 @@ class CustomD3Component extends D3Component {
       .attr("fill","blue")
       console.log("state=1")
 
+      this.svg
+      .selectAll('line')
+      .attr("stroke","black")
+
     }
     else if (props.state==2){
       this.step2AddWater(props,oldProps)
@@ -142,7 +136,6 @@ class CustomD3Component extends D3Component {
     else{
       this.svg
       .selectAll('line')
-      .transition()
       .attr("stroke","black")
       console.log("state=else")
 
@@ -151,6 +144,9 @@ class CustomD3Component extends D3Component {
   }
 
   step0(props, oldProps) {
+    this.svg
+    .selectAll("line")
+    .attr("stroke", "black");
 
     var t1 = 2000
     var t2 = 4000
@@ -262,11 +258,23 @@ class CustomD3Component extends D3Component {
     .attr("stroke-width",8)
 
     this.svg
+    .selectAll("text").filter(function(d) {return this.id == "text0"})
+    .transition()
+    .delay(t1)
+    .text("5/5")
+
+    this.svg
     .selectAll("line").filter(function(d) {return this.id == "line3"})
     .transition()
     .delay(t2)
     .attr("stroke", "blue")
     .attr("stroke-width",8)
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "text3"})
+    .transition()
+    .delay(t2)
+    .text("5/5")
 
     this.svg
     .selectAll("line").filter(function(d) {return this.id == "line1"})
@@ -276,6 +284,12 @@ class CustomD3Component extends D3Component {
     .attr("stroke-width",8)
 
     this.svg
+    .selectAll("text").filter(function(d) {return this.id == "text1"})
+    .transition()
+    .delay(t3)
+    .text("1/1")
+
+    this.svg
     .selectAll("line").filter(function(d) {return this.id == "line2"})
     .transition()
     .delay(t4)
@@ -283,11 +297,41 @@ class CustomD3Component extends D3Component {
     .attr("stroke-width",8)
 
     this.svg
+    .selectAll("text").filter(function(d) {return this.id == "text2"})
+    .transition()
+    .delay(t4)
+    .text("1/3")
+
+    this.svg
     .selectAll("line")
     .transition()
     .delay(t5)
     .attr("stroke", "black")
     .attr("stroke-width",5)
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "text0"})
+    .transition()
+    .delay(t5)
+    .text("0/5")
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "text1"})
+    .transition()
+    .delay(t5)
+    .text("0/1")
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "text2"})
+    .transition()
+    .delay(t5)
+    .text("0/3")
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "text3"})
+    .transition()
+    .delay(t5)
+    .text("0/5")
 
     // .attr("stroke", "blue");
   }

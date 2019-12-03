@@ -131,4 +131,24 @@ You can learn more about these applications and how they apply to the maximum fl
 
   [/Step]
 
+  [Step]
+    ## Residual Flow
+
+    Along with pushing flow through the network from source to sink, for every graph there exists a residual network that goes from sink to source.
+    The residual graph will always be equal to the original capacity of the edge minus current flow.
+
+  [/Step]
+
+  [Step]
+    ## Residual Flow
+
+    Along with pushing flow through the network from source to sink, for every graph there exists a residual network that goes from sink to source.
+    The residual graph will always be equal to the original capacity of the edge minus current flow.
+
+  [/Step]
+
 [/Scroller]
+
+## Test your Knowledge
+
+In the examples below, please select your guess for Max Flow and Min Cut (To be added later)
