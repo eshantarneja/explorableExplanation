@@ -10,16 +10,11 @@
   color:"#ffffff"
    /]
 
-## Introduction
+## Welcome!
 
-This is an Idyll scrolly-telling post. It is generated via
-the file `index.idyll`. To compile this post using
-idyll, run the command `idyll` inside of this directory.
+This post was written using a component-based library called Idyll.  It was created with the primary purpose of explaining network flow and the maximum flow algorithm.  As you explore, you will see various buttons and sliders to interact with.  You may use them to alter values and attributes on screen.  Enjoy!
 
-Idyll posts are designed to support interaction and
-data-driven graphics.
 
-Configuration can be done via the `idyll` field in `package.json`.
 
 [var name:"state" value:-1 /]
 
@@ -29,11 +24,9 @@ Configuration can be done via the `idyll` field in `package.json`.
     [CustomD3Component className:"d3-component" state:`state` /]
   [/Graphic]
 
-
   [Step]
   
     ## Understanding Network Graphs (wait for animation)
-
 
     The key parts of network graphs are nodes, edges, and capacities. 
 
@@ -42,6 +35,7 @@ Configuration can be done via the `idyll` field in `package.json`.
 
     Furthermore, a flow must satisfy the restriction that the amount of flow into a node equals the amount of flow out of it.  
     That is unless the node is a source (start of the flow), which only has outgoing flow, or a sink (end of the flow), which only has incoming flow. 
+
   [/Step]
 
   [Step]
