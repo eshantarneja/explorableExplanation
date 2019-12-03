@@ -2,16 +2,16 @@ const React = require('react');
 const D3Component = require('idyll-d3-component');
 const d3 = require('d3');
 
-const size = 600;
+const size = 700;
 
 class CustomD3Component extends D3Component {
   initialize(node, props) {
     const svg = (this.svg = d3.select(node).append('svg'));
 
     var margin = {top: 0, right: 0, bottom: 0, left: 0},
-    width = 600 - margin.left - margin.right,
-    height = 600 - margin.top - margin.bottom;
-    
+    width = 700 - margin.left - margin.right,
+    height = 700 - margin.top - margin.bottom;
+
     svg
     .attr('viewBox', `0 0 ${width} ${height}`)
     .style('width', '100%')
@@ -32,14 +32,14 @@ class CustomD3Component extends D3Component {
     ];
 
     var links = [
-    { source: 0, target: 1, capacity: 5 },
-    { source: 0, target: 2, capacity: 1},
-    { source: 2, target: 3, capacity: 3},
-    { source: 1, target: 3, capacity: 5},
-    { source: 1, target: 2, capacity: 4}
+    { source: 0, target: 1, capacity: 5, id:0},
+    { source: 0, target: 2, capacity: 1, id:1},
+    { source: 2, target: 3, capacity: 3, id:2},
+    { source: 1, target: 3, capacity: 5, id:3},
+    { source: 1, target: 2, capacity: 4, id:4}
     ];
 
-
+    let lineId = 0;
 
     svg.append("svg:defs").append("svg:marker")
     .attr("id", "triangle")
@@ -61,6 +61,7 @@ class CustomD3Component extends D3Component {
     .attr("y1", function(d) { return nodes[d.source].y; })
     .attr("x2", function(d) { return nodes[d.target].x; })
     .attr("y2", function(d) { return nodes[d.target].y; })
+    .attr("id", function(d) { return "line"+d.id})
     .attr("stroke-width", 5)
     .attr("stroke","black")
     .attr("marker-end", "url(#triangle)");
@@ -79,6 +80,17 @@ class CustomD3Component extends D3Component {
     .data(links)
     .enter()
     .append("text")
+    // .attr("x", placeText(nodes[d.target],nodes[d.source], 'x') )
+    // .attr("y", placeText(nodes[d.target],nodes[d.source], 'y'))
+    // .attr("x", function(d){ return (nodes[d.target].x + nodes[d.source].x)/2;})
+    // .attr("y", function(d){
+    //   if (nodes[d.source].y < nodes[d.target].y){
+    //     return nodes[d.target].y + nodes[d.source].y/2
+    //   }
+    //   else{
+    //     return nodes[d.target].y + nodes[d.source].y/2
+    //   }
+    // })
     .attr("x", function(d){ return (nodes[d.target].x + nodes[d.source].x)/2})
     .attr("y", function(d){ return (nodes[d.target].y + nodes[d.source].y)/2})
     .text(function(d){return d.capacity})
@@ -99,13 +111,12 @@ class CustomD3Component extends D3Component {
 
 
   }
-  // each "step" in the idyll file has a number associated with it. 
+  // each "step" in the idyll file has a number associated with it.
   // To update our graphic all we need to do is check the state number and update
 
   update(props, oldProps) {
     if (props.state==0){
       this.step0(props,oldProps)
-      this.step0(props,oldProps)  
     }
     else if (props.state==1){
       this.svg
@@ -113,22 +124,28 @@ class CustomD3Component extends D3Component {
       .transition()
       .attr("fill","blue")
       console.log("state=1")
-      
+
     }
     else if (props.state==2){
+      this.step2AddWater(props,oldProps)
+
       this.svg
       .selectAll('text')
       .transition()
-      .attr("fill","orange")
-      console.log("state=2")
+      .attr("fill","red")
+      console.log("state=else")
+    }
+    else if (props.state==4){
+      this.step4SimpleFlow(props,oldProps)
+      console.log("state=3")
     }
     else{
       this.svg
-      .selectAll('text')
+      .selectAll('line')
       .transition()
-      .attr("fill","yellow")
+      .attr("stroke","black")
       console.log("state=else")
-    
+
     }
 
   }
@@ -207,13 +224,84 @@ class CustomD3Component extends D3Component {
     .transition()
     .delay(t4)
     .text("NETWORK FLOW")
+  }
+
+  step2AddWater(props, oldProps) {
+
+    this.svg
+    .selectAll("line").filter(function(d) { return this.x1.animVal["value"] != this.x2.animVal["value"]})
+    .attr("stroke", "blue");
+
+    // this.svg
+    // .selectAll("text").filter(function(d) { console.log(this.x)})
+    // .attr("fill", "blue");
 
 
+    console.log("trying to add simple blue rectangles")
 
+  }
 
+  step4SimpleFlow(props, oldProps) {
+    var t1 = 1000
+    var t2 = 2000
+    var t3 = 3000
+    var t4 = 4000
+    var t5 = 6500
 
+    this.svg
+    .selectAll("line")
+    .transition()
+    .attr("stroke", "black")
+    .attr("stroke-width",5)
 
+    this.svg
+    .selectAll("line").filter(function(d) {return this.id == "line0"})
+    .transition()
+    .delay(t1)
+    .attr("stroke", "blue")
+    .attr("stroke-width",8)
 
+    this.svg
+    .selectAll("line").filter(function(d) {return this.id == "line3"})
+    .transition()
+    .delay(t2)
+    .attr("stroke", "blue")
+    .attr("stroke-width",8)
+
+    this.svg
+    .selectAll("line").filter(function(d) {return this.id == "line1"})
+    .transition()
+    .delay(t3)
+    .attr("stroke", "blue")
+    .attr("stroke-width",8)
+
+    this.svg
+    .selectAll("line").filter(function(d) {return this.id == "line2"})
+    .transition()
+    .delay(t4)
+    .attr("stroke", "blue")
+    .attr("stroke-width",8)
+
+    this.svg
+    .selectAll("line")
+    .transition()
+    .delay(t5)
+    .attr("stroke", "black")
+    .attr("stroke-width",5)
+
+    // .attr("stroke", "blue");
+  }
+}
+
+function placeText(source, target, attr) {
+  if (attr == 'x'){
+    return target.x + source.x/2;
+  }
+  else if (target.y > source.y){
+    return target.y + source.y/1.5;
+  }
+  else {
+    return target.y + source.y/2;
   }
 }
 

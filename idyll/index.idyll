@@ -19,11 +19,11 @@ This post was written using a component-based library called Idyll.  It was crea
 
 Generally speaking, the maximum flow problem can be stated as:
 
-Given a set of nodes and edges comprising a network, and a fixed maximum capacity for every edge, what is the maximum amount of flow that can pass through the network? 
+Given a set of nodes and edges comprising a network, and a fixed maximum capacity for every edge, what is the maximum amount of flow that can pass through the network?
 
-The maximum flow of a network is defined as the maximum amount of flow that the network would allow to pass from source to sink. There are numerous existing algorithms that solve this particular problem; however, the one we wish to cover is the Ford-Fulkerson algorithm. 
+The maximum flow of a network is defined as the maximum amount of flow that the network would allow to pass from source to sink. There are numerous existing algorithms that solve this particular problem; however, the one we wish to cover is the Ford-Fulkerson algorithm.
 
-#### Real World Applications (Note: add clicking interaction)
+#### Real World Applications
 
 1. Baseball Elimination
 2. Airline scheduling
@@ -41,125 +41,94 @@ You can learn more about these applications and how they apply to the maximum fl
   [/Graphic]
 
   [Step]
-  
+
     ## Understanding Network Graphs (wait for animation)
 
-    As mentioned previously, the key parts of network graphs are nodes, edges, and capacities. 
+    As mentioned previously, the key parts of network graphs are nodes, edges, and capacities.
 
-    Every edge within the network is directed (flow can only move one direction through an edge).  
-    Additionally, each edge has a fixed capacity. The amount of flow through an edge cannot exceed the capacity of the edge.  
+    Every edge within the network is directed (flow can only move one direction through an edge).
+    Additionally, each edge has a fixed capacity. The amount of flow through an edge cannot exceed the capacity of the edge.
 
-    Furthermore, a flow must satisfy the restriction that the amount of flow into a node equals the amount of flow out of it.  
-    That is unless the node is a source (start of the flow), which only has outgoing flow, or a sink (end of the flow), which only has incoming flow. 
+    Furthermore, a flow must satisfy the restriction that the amount of flow into a node equals the amount of flow out of it.
+    That is unless the node is a source (start of the flow), which only has outgoing flow, or a sink (end of the flow), which only has incoming flow.
 
   [/Step]
 
-[/Scroller]
-
-## Network Flow
-
-In graph theory, a flow network is defined as a directed graph involving a source(S), a sink(T), and additional nodes that are connected with edges. Each edge has an individual capacity which is the maximum limit of flow that edge could allow. The following graphic is an example of a flow network with flow = 0: 
-
-  [Graphic]
-     [img src:"static/images/example_network.png" /]
-  [/Graphic]
-
-For those who are more mathematically inclined, you may think of a flow network as a tuple, [Equation] G = (V, E, s, t, c) [/Equation].  Essentially, it is comprised of a Digraph [Equation] (V,E) [/Equation] with source, [Equation] s \in V [/Equation], and sink, [Equation] t \in V [/Equation]. Additionally, for each edge, [Equation] e \in E [/Equation], there exists a non-negative capacity [Equation] c_e [/Equation]. A flow through an edge is defined as [Equation] f_e [/Equation].
-
-Note: In the all of the graphics in article, we will use the notation [Equation] f_e / c_e [/Equation] (i.e. 4/10) to denote the flow and capacity of each edge. 
 
 
-## Maximum Flow Problem
-
-Define: An st-flow, [Equation] f [/Equation], is a function that satisfies:
-* (Capacity) - For each [Equation] e \in E:  0 \leq f_e \leq c_e [/Equation]      
-* (Flow conservation) - For each [Equation] v \in V - ({s,t}):  \Sigma f_e [/Equation]  (e out of s) [Equation] - \Sigma f_e  [/Equation] (e in to s)      
-
-The value of flow, [Equation] f [/Equation], is: 
-
-* val(f) = [Equation]  \Sigma f_e [/Equation]  (e out of s) [Equation] -  \Sigma f_e  [/Equation] (e in to s)
-
-In other words, a maximum possible flow from s to t exists based on these two constraints:
-* Flow on an edge doesn’t exceed the given capacity of the edge.
-* Incoming flow is equal to outgoing flow for every vertex except s and t. 
-
-
-## Ford-Fulkerson Algorithm
-
-It was developed by L. R. Ford, Jr. and D. R. Fulkerson in 1956. A pseudocode for this algorithm is given below.  The inputs required are graph G, source node S, and sink node T.
-
-```
-function: FordFulkerson(Graph G, Node S, Node T):
-    Initialise flow in all edges to 0
-    while (there exists an augmenting path(P) between S and T in residual network graph):
-        Augment flow between S to T along the path P
-        Update residual network graph
-    return
-```
-
-These are the following steps that a greedy algorithm would take to solve the maximum flow problem:
-
-* Start with [Equation] f_e = 0 [/Equation] for each edge [Equation] e \in E [/Equation].
-* Find an s↝t path P where each edge has [Equation] f_e < c_e [/Equation].
-* Augment flow along path P.
-* Repeat until you get stuck.
-
-### Example
-
-
-
-
-[Scroller currentStep:state]
   [Step]
-    ## Components
 
-    [Display value:state /]
+    ## Network Flow
 
-    Components can be embedded using a bracket syntax:
+    In graph theory, a flow network is defined as a directed graph involving a source(S), a sink(T), and additional nodes that are connected with edges. Each edge has an individual capacity which is the maximum limit of flow that edge could allow. The following graphic is an example of a flow network with flow = 0:
 
-    ```
-    [Range /]
-    ```
+      [Graphic]
+         [img src:"static/images/example_network.png" /]
+      [/Graphic]
 
-    and can contain nested content:
+    For those who are more mathematically inclined, you may think of a flow network as a tuple, [Equation] G = (V, E, s, t, c) [/Equation].  Essentially, it is comprised of a Digraph [Equation] (V,E) [/Equation] with source, [Equation] s \in V [/Equation], and sink, [Equation] t \in V [/Equation]. Additionally, for each edge, [Equation] e \in E [/Equation], there exists a non-negative capacity [Equation] c_e [/Equation]. A flow through an edge is defined as [Equation] f_e [/Equation].
 
-    ```
-    [Equation]e = mc^{2}[/Equation]
-    ```
+    Note: In the all of the graphics in article, we will use the notation [Equation] f_e / c_e [/Equation] (i.e. 4/10) to denote the flow and capacity of each edge.
 
-    Components accept properties:
-
-    ```
-    [Range value:x min:0 max:1 /]
-    ```
-
-    that can be bound to variables to achieve interactivity (more in next section).
-
-
-    A variety of components are included by default. See [all the available components](https://idyll-lang.org/docs/components/). You can also use any html tag, for example: `[div] A div! [/div]`.
-
-    To create your own, add it to the `components/` folder. There are examples of how to use Idyll with React and D3 based components already included.
-  
   [/Step]
 
   [Step]
-    ## Interactivity
 
-    [Display value:state /]
+    ## Simple Example
 
-    Here is how you can instantiate a variable and bind it to a component:
+    On the right you will see "water" flowing through the graph in an example path. The blue lines indicate flow being pushed through the graph. The source outputs 6 units of flow, and 6 units of flow leave the sink.
+  [/Step]
 
-    [var name:"exampleVar" value:5 /]
+  [Step]
+    ## Maximum Flow Problem
 
-    [Range min:0 max:10 value:exampleVar /]
-    [Display value:exampleVar /]
+    Define: An st-flow, [Equation] f [/Equation], is a function that satisfies:
+    * (Capacity) - For each [Equation] e \in E:  0 \leq f_e \leq c_e [/Equation]
+    * (Flow conservation) - For each [Equation] v \in V - ({s,t}):  \Sigma f_e [/Equation]  (e out of s) [Equation] - \Sigma f_e  [/Equation] (e in to s)
+
+    The value of flow, [Equation] f [/Equation], is:
+
+    * val(f) = [Equation]  \Sigma f_e [/Equation]  (e out of s) [Equation] -  \Sigma f_e  [/Equation] (e in to s)
+
+    In other words, a maximum possible flow from s to t exists based on these two constraints:
+    * Flow on an edge doesn’t exceed the given capacity of the edge.
+    * Incoming flow is equal to outgoing flow for every vertex except s and t.
+
+    In the case of the graph on the right, the max flow is 6! 5 units flow through the top pipes and 1 unit flows through the bottom.
+
+  [/Step]
+
+  [Step]
+    ## Ford-Fulkerson Algorithm
+
+    It was developed by L. R. Ford, Jr. and D. R. Fulkerson in 1956. A pseudocode for this algorithm is given below.  The inputs required are graph G, source node S, and sink node T.
 
     ```
-    [var name:"exampleVar" value:5 /]
-
-    [Range min:0 max:10 value:exampleVar /]
-    [Display value:exampleVar /]
+    function: FordFulkerson(Graph G, Node S, Node T):
+        Initialise flow in all edges to 0
+        while (there exists an augmenting path(P) between S and T in residual network graph):
+            Augment flow between S to T along the path P
+            Update residual network graph
+        return
     ```
+
+    A Step by Step might look like this:
+
+    1. Push flow through the top side pipes. The bottle neck is 5 units from both of the pipes.
+    2. Push flow through the bottom side pipes. The bottle neck is 1 unit from the bottom pipe attached to the source node.
+    3. Since the source node cannot push any more flow, the algorithm has completed.
+  [/Step]
+
+  [Step]
+    ## Greedy Algorithm
+
+    These are the following steps that a greedy algorithm would take to solve the maximum flow problem:
+
+    * Start with [Equation] f_e = 0 [/Equation] for each edge [Equation] e \in E [/Equation].
+    * Find an s↝t path P where each edge has [Equation] f_e < c_e [/Equation].
+    * Augment flow along path P.
+    * Repeat until you get stuck.
+
   [/Step]
 
 [/Scroller]
