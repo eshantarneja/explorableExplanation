@@ -35,8 +35,13 @@ Configuration can be done via the `idyll` field in `package.json`.
     ## Understanding Network Graphs (wait for animation)
 
 
-    The key parts of Network Graphs are Nodes, Edges, and Capacities. Each Edge has a capacity. Every node must take in the same from one edge as it puts out the other edge.
+    The key parts of network graphs are nodes, edges, and capacities. 
 
+    Every edge within the network is directed (flow can only move one direction through an edge).  
+    Additionally, each edge has a fixed capacity. The amount of flow through an edge cannot exceed the capacity of the edge.  
+
+    Furthermore, a flow must satisfy the restriction that the amount of flow into a node equals the amount of flow out of it.  
+    That is unless the node is a source (start of the flow), which only has outgoing flow, or a sink (end of the flow), which only has incoming flow. 
   [/Step]
 
   [Step]
@@ -92,52 +97,3 @@ Configuration can be done via the `idyll` field in `package.json`.
   [/Step]
 
 [/Scroller]
-
-[Scroller]
-
-  [Step]
-
-    ##Scroller
-    
-    The `Scroller` component is used to create scroll-based presentations. It can be used to create scrollytelling articles similar to this. 
-    It takes a property `currentStep` which is updated when the user scrolls to a different step.
-
-    A persistent graphic may also provided using the `Graphic` component in order to create visualizations.
-
-  [/Step]
-
-  [Step]
-
-    ## Learn More
-
-    To learn more see the documentation at https://idyll-lang.org/docs/,
-    join our [chatroom](https://gitter.im/idyll-lang/Lobby), or see the project on [GitHub](https://github.com/idyll-lang/idyll).
-  [hr /]
-    
-  [/Step]
-
-[/Scroller]
-
-[br/]
-# Technical Details
-
-## Installation
-
-- Make sure you have `idyll` installed (`npm i -g idyll`).
-- Clone this repo and run `npm install`.
-
-## Developing a post locally
-
-Run `idyll`.
-
-## Building a post for production
-
-Run `idyll build`. The output will appear in the top-level `build` folder. To change the output location, change the `output` option in `package.json`.
-
-## Deploying
-
-Make sure your post has been built, then deploy the docs folder via any static hosting service.
-
-## Dependencies
-
-You can install custom dependencies by running `npm install <package-name> --save`. Note that any collaborators will also need download the package locally by running `npm install` after pulling the changes.
