@@ -97,6 +97,13 @@ function: FordFulkerson(Graph G, Node S, Node T):
     return
 ```
 
+These are the following steps that a greedy algorithm would take to solve the maximum flow problem:
+
+* Start with [Equation] f_e = 0 [/Equation] for each edge [Equation] e \in E [/Equation].
+* Find an s↝t path P where each edge has [Equation] f_e < c_e [/Equation].
+* Augment flow along path P.
+* Repeat until you get stuck.
+
 ### Example
 
 
