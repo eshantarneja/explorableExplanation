@@ -2,15 +2,15 @@ const React = require('react');
 const D3Component = require('idyll-d3-component');
 const d3 = require('d3');
 
-const size = 850;
+const size = 500;
 
 class CustomD3Component extends D3Component {
   initialize(node, props) {
     const svg = (this.svg = d3.select(node).append('svg'));
 
     var margin = {top: 0, right: 0, bottom: 0, left: 0},
-    width = 850 - margin.left - margin.right,
-    height = 850 - margin.top - margin.bottom;
+    width = size - margin.left - margin.right,
+    height = size - margin.top - margin.bottom;
 
     svg
     .attr('viewBox', `0 0 ${width} ${height}`)

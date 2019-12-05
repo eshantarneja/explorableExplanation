@@ -152,3 +152,7 @@ You can learn more about these applications and how they apply to the maximum fl
 ## Test your Knowledge
 
 In the examples below, please select your guess for Max Flow and Min Cut (To be added later)
+
+[Graphic className:"new-component-container"]
+    [NewD3Component className:"new-component" /]
+  [/Graphic]
