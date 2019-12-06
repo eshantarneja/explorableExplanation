@@ -19,16 +19,18 @@ This post was written using a component-based library called Idyll.  It was crea
 
 Generally speaking, the maximum flow problem can be stated as:
 
-Given a set of nodes and edges comprising a network, and a fixed maximum capacity for every edge, what is the maximum amount of flow that can pass through the network?
+Given a set of nodes and edges comprising a network, an infinite input source, and a fixed maximum capacity for every edge, what is the maximum amount of flow that can pass through the network?
 
 The maximum flow of a network is defined as the maximum amount of flow that the network would allow to pass from source to sink. There are numerous existing algorithms that solve this particular problem; however, the one we wish to cover is the Ford-Fulkerson algorithm.
 
 #### Real World Applications
 
-1. Baseball Elimination
+There exist numerous applications of the maximum flow problem, some of which you may not have even considered!  Here are a few interesting applications:
+
+1. Baseball Playoff Elimination
 2. Airline scheduling
 3. Circulation-demand problem
-4. Fairness in car sharing (carpool)
+4. Fairness in car sharing (carpooling)
 
 You can learn more about these applications and how they apply to the maximum flow problem [link text:"here" url:"https://en.wikipedia.org/wiki/Maximum_flow_problem#Real_world_applications" /].
 
@@ -46,29 +48,27 @@ You can learn more about these applications and how they apply to the maximum fl
 
     As mentioned previously, the key parts of network graphs are nodes, edges, and capacities.
 
-    Every edge within the network is directed (flow can only move one direction through an edge).
-    Additionally, each edge has a fixed capacity. The amount of flow through an edge cannot exceed the capacity of the edge.
-
-    Furthermore, a flow must satisfy the restriction that the amount of flow into a node equals the amount of flow out of it.
-    That is unless the node is a source (start of the flow), which only has outgoing flow, or a sink (end of the flow), which only has incoming flow.
+    Although network graphs may have undirected edges, the graphs specific to flow networks only contain directed edges.  This means that flow can only move one direction through an edge. Additionally, each edge within the network has a fixed capacity. The amount of flow through an edge cannot exceed the capacity of the edge.
 
   [/Step]
-
-
 
   [Step]
 
     ## Network Flow
 
-    In graph theory, a flow network is defined as a directed graph involving a source(S), a sink(T), and additional nodes that are connected with edges. Each edge has an individual capacity which is the maximum limit of flow that edge could allow. The following graphic is an example of a flow network with flow = 0:
+    In graph theory, a flow network is defined as a directed graph involving a source(S), a sink(T), and additional nodes that are connected with edges. Each edge has an individual capacity which is the maximum limit of flow that edge could allow. The following graphic is an example of a flow network with zero flow passing through it (flow = 0).
 
       [Graphic]
          [img src:"static/images/example_network.png" /]
       [/Graphic]
 
+    This is what an initialized flow network looks like - each edge has an initial flow of 0 and a non-negative capacity.  
+
     For those who are more mathematically inclined, you may think of a flow network as a tuple, [Equation] G = (V, E, s, t, c) [/Equation].  Essentially, it is comprised of a Digraph [Equation] (V,E) [/Equation] with source, [Equation] s \in V [/Equation], and sink, [Equation] t \in V [/Equation]. Additionally, for each edge, [Equation] e \in E [/Equation], there exists a non-negative capacity [Equation] c_e [/Equation]. A flow through an edge is defined as [Equation] f_e [/Equation].
 
     Note: In the all of the graphics in article, we will use the notation [Equation] f_e / c_e [/Equation] (i.e. 4/10) to denote the flow and capacity of each edge.
+
+    "think about it as pipes w/ water"
 
   [/Step]
 
@@ -83,25 +83,85 @@ You can learn more about these applications and how they apply to the maximum fl
     ## Maximum Flow Problem
 
     Define: An st-flow, [Equation] f [/Equation], is a function that satisfies:
+
     * (Capacity) - For each [Equation] e \in E:  0 \leq f_e \leq c_e [/Equation]
-    * (Flow conservation) - For each [Equation] v \in V - ({s,t}):  \Sigma f_e [/Equation]  (e out of s) [Equation] - \Sigma f_e  [/Equation] (e in to s)
+
+    * (Flow conservation) - For each [Equation] v \in V - ({s,t}):  \Sigma f_e [/Equation]  (e out of v) [Equation] - \Sigma f_e  [/Equation] (e in to v)
 
     The value of flow, [Equation] f [/Equation], is:
 
-    * val(f) = [Equation]  \Sigma f_e [/Equation]  (e out of s) [Equation] -  \Sigma f_e  [/Equation] (e in to s)
+    * val(f) = [Equation]  \Sigma f_e [/Equation]  (e out of v) [Equation] -  \Sigma f_e  [/Equation] (e in to v)
 
     In other words, a maximum possible flow from s to t exists based on these two constraints:
+
     * Flow on an edge doesn’t exceed the given capacity of the edge.
-    * Incoming flow is equal to outgoing flow for every vertex except s and t.
+
+    * Incoming flow is equal to outgoing flow for every vertex in the network, except for the source (S) and sink (T).
 
     In the case of the graph on the right, the max flow is 6! 5 units flow through the top pipes and 1 unit flows through the bottom.
 
   [/Step]
 
   [Step]
+    ## Residual Network Flow
+
+    For every flow network, G, that pushes flow from source to sink, there exists a residual network, R, that goes from sink to source. This residual network shares the same set of vertices as the original network, G.  Additionally, for each edge [Equation] e = (u,v) \in G [/Equation], there exists the following in the residual network, R:
+
+    * A forward edge [Equation] e' = (u,v) [/Equation] with capacity [Equation] c_e - f_e [/Equation], if [Equation]  c_e - f_e  > 0[/Equation]
+
+    * A backward edge [Equation] e'' = (v,u) [/Equation] with capacity [Equation] f_e [/Equation], if [Equation] f_e  > 0[/Equation]
+
+    The forward edge of a residual graph has a value entitled the, "residual capacity," which is equal to the original capacity of the edge minus the current flow through it. Effectively, the residual capacity is the current capacity of the edge. 
+
+    The backwards edge of a residual graph holds that value of flow that is currently passing through the edge.  This value is updated in each step of the algorithm. 
+
+    The purpose of the residual graph is to keep track of the additional possible flow in each edge within the network.  Using a residual network, one is able to determine whether or not it is possible to add additional flow to the network.  This can be achieved by identifying a path from source to sink in the residual network.  Ultimately, a residual network is used to determine an optimal solution to the maximum flow algorithm.  This will be further touched on below.  
+
+
+  [/Step]
+
+  [Step]
+    ## Solving With A Greedy Approach
+
+    A simple way to solve the maximum-flow problem is with a greedy approach.  Let us define what that would look like below:
+
+    1. Start with [Equation] f_e = 0 [/Equation] for each edge [Equation] e \in E [/Equation].
+
+    2. Find path P from source to sink, S ↝ T, where each edge has [Equation] f_e < c_e [/Equation].
+
+    3. Augment flow along path P.
+
+    4. Repeat until you get stuck.
+
+
+    While this a simple method that will allow us to push flow through a network, in many cases a greedy solve is sub-optimal.  Accordingly, there exists a better path that is able to push additional flow optimally through the network.   
+
+    With this in mind, we know that a greedy max-flow algorithm has two potential outcomes:
+
+      a) The optimal flow is achieved.
+
+      b) No more flow can be pushed greedily through the network, and the returned path is sub-optimal.
+
+    As the networks that you evaluate become increasingly complex, the likelihood that a greedy algorithm will return an optimal flow is minute.
+
+    Is there a better approach that would allow us to account for choosing a sub-optimal path using a greedy algorithm?
+
+  [/Step]
+
+  [Step]
     ## Ford-Fulkerson Algorithm
 
-    It was developed by L. R. Ford, Jr. and D. R. Fulkerson in 1956. A pseudocode for this algorithm is given below.  The inputs required are graph G, source node S, and sink node T.
+    It turns out that a simple, greedy approach does not work.  Evidently, there needs to be some way of backtracking in the network (i.e. being able to undo some flow on some edges, if we overcommitted and used "too much" flow there).  This is where residual networks come into play.
+
+    *** HERE IS AN EXAMPLE OF OVERCOMMITTING ***
+    
+    Luckily, there exists a better algorithm to solve this problem called the Ford-Fulkerson Algorithm. It was developed in 1956 by L. R. Ford, Jr. and D. R. Fulkerson and their method is widely used today!
+
+    To find the maximum flow (and the minimum cut as a byproduct), the Ford-Fulkerson algorithm repeatedly searches for and finds augmenting paths using the residual network graph. This process repeats as flow is augmented through the network until no more augmenting paths are found in the network. 
+
+    An augmenting path is a path of edges in the residual graph with unused capacity greater than zero, [Equation] f_e < c_e [/Equation], from source (S) to sink (T).  
+
+     A pseudocode for this algorithm is given below.  The inputs required are graph G, source node S, and sink node T.
 
     ```
     function: FordFulkerson(Graph G, Node S, Node T):
@@ -111,41 +171,60 @@ You can learn more about these applications and how they apply to the maximum fl
             Update residual network graph
         return
     ```
+    In this implementation of the Ford-Fulkerson algorithm, the maximum flow will be reached when no more flow augmenting paths can be found in the graph. However, there is no certainty that this situation will ever be reached.  As such, we can only guarantee that the solution is correct if the algorithm terminates. In the case that the algorithm runs forever, it is likely that the flow will not converge towards the maximum flow.  Fortunately, this situation only occurs with irrational flow values.
+
+    ### Time Complexity
+
+    The time complexity for the above algorithm is [Equation] O(Ef) [/Equation], where E is the number of edges in the graph and f is the maximum flow of the graph. This is because each augmenting path can be found in [Equation] O(E) [/Equation] time and increases the flow by an integer amount of at least 1, with the upper bound, [Equation] f [/Equation].
+
+    Note: this complexity only holds if the capacities of the graph are integers. 
+
+    A variation of the Ford–Fulkerson algorithm with guaranteed termination and a runtime independent of the maximum flow value is the Edmonds–Karp algorithm, which runs in   [Equation] O(VE^{2}) [/Equation] time.  You may read more about this implementation [link text:"here" url:"https://www.geeksforgeeks.org/ford-fulkerson-algorithm-for-maximum-flow-problem/" /].  However, the general idea is to use a breadth-first search (BFS) coupled with the Ford Fulkerson implementation.  BFS is key to this implementation, as it always picks a path with minimum number of edges. 
+
+    ---------------------------
+
+    
+    Basic idea for how to do this, leaving everything else in the algorithm unchanged:
+    When computing the residual graph given the current flow graph, add some additional edges...
+    These additional edges will have the same weight as edges in the flow graph, but that point in the opposite direction! Call these additional edges backward edges.
+    (The forward edges we talked about before had a weight that is the difference between the capacity graph edge weight and the flow graph edge weight, and point in the same direction. They will still be there.)
+    Backward edges, as well as the regular forward edges, can be included in an augmenting path in the residual graph
+    However, when using the augmenting path bottleneck weight to update the flow graph weights, if an augmenting path edge is a backward edge, its weight gets subtracted from the current flow graph edge (undoing flow!), instead of added.
+    It turns out that this idea works, and leads to the Ford-Fulkerson algorithm
+
 
     A Step by Step might look like this:
 
     1. Push flow through the top side pipes. The bottle neck is 5 units from both of the pipes.
     2. Push flow through the bottom side pipes. The bottle neck is 1 unit from the bottom pipe attached to the source node.
     3. Since the source node cannot push any more flow, the algorithm has completed.
-  [/Step]
-
-  [Step]
-    ## Greedy Algorithm
-
-    These are the following steps that a greedy algorithm would take to solve the maximum flow problem:
-
-    * Start with [Equation] f_e = 0 [/Equation] for each edge [Equation] e \in E [/Equation].
-    * Find an s↝t path P where each edge has [Equation] f_e < c_e [/Equation].
-    * Augment flow along path P.
-    * Repeat until you get stuck.
 
   [/Step]
 
-  [Step]
-    ## Residual Flow
+  [Step] 
+  ## Max-flow, Min-cut Theorem
 
-    Along with pushing flow through the network from source to sink, for every graph there exists a residual network that goes from sink to source.
-    The residual graph will always be equal to the original capacity of the edge minus current flow.
+  We know that the outgoing edges from the sink give us an upper bound on the amount of flow that can be pushed through the network, but is it in fact the tighest upper bound that we can find within the entire network?  The answer is no, the tightest upper bound that can be found within a flow network is know as the minimum cut of the network. As such, the minimum cut of a network dictates the maximum amount of flow that can be pushed through a network.   
+
+  Essentially, what the max-flow, min-cut theorem aims to do is to take an s-t cut of the network.  So what is an s-t cut exactly?  An s-t cut is a partitioning of the vertices into two disjoint subsets; one subset will contain the source (S) and the other will contain the sink (T). One interesting way of envisioning this s-t cut is using set theory (A and B are the two disjoint subsets).  
+
+  * [Equation] A \cup B \in V [/Equation] (the union of A and B is the original network)
+
+  * [Equation] A \cap B = \varnothing [/Equation] (the intersection of A and B is an empty set)
+
+  The goal of this cut is to find the capacity of the edges that cross the partition made by the cut.  Again, the smallest capacity cut will dictate the maximum capacity flow that is feasible within the flow network. 
 
   [/Step]
 
-  [Step]
-    ## Residual Flow
+    ---------------------------------------------------------------------------------
 
-    Along with pushing flow through the network from source to sink, for every graph there exists a residual network that goes from sink to source.
-    The residual graph will always be equal to the original capacity of the edge minus current flow.
+    Furthermore, a flow must satisfy the restriction that the amount of flow into a node equals the amount of flow out of it.
+    That is unless the node is a source (where the flow begins), which only has outgoing flow, or a sink (where the source ends), which only has incoming flow.
 
-  [/Step]
+
+    Let us now talk about implementation details. Residual capacity is 0 if there is no edge between two vertices of residual graph. We can initialize the residual graph as original graph as there is no initial flow and initially residual capacity is equal to original capacity. To find an augmenting path, we can either do a BFS or DFS of the residual graph. We have used BFS in below implementation. Using BFS, we can find out if there is a path from source to sink. BFS also builds parent array. Using the parent array, we traverse through the found path and find possible flow through this path by finding minimum residual capacity along the path. We later add the found path flow to overall flow.
+    The important thing is, we need to update residual capacities in the residual graph. We subtract path flow from all edges along the path and we add path flow along the reverse edges We need to add path flow along reverse edges because may later need to send flow in reverse direction (See following link for example).
+
 
 [/Scroller]
 
