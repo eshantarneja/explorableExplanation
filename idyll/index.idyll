@@ -68,7 +68,7 @@ You can learn more about these applications and how they apply to the maximum fl
 
     Note: In the all of the graphics in article, we will use the notation [Equation] f_e / c_e [/Equation] (i.e. 4/10) to denote the flow and capacity of each edge.
 
-    "think about it as pipes w/ water"
+    If you are having trouble visualizing the problem as a network with nodes and edges, think of the network as a series of pipes with various capacities.  Your overarching goal is to allow as much water to flow through the pipes as possible.  However, you cannot push more water through a pipe than it allows because the pipe would burst.   
 
   [/Step]
 
@@ -82,21 +82,21 @@ You can learn more about these applications and how they apply to the maximum fl
   [Step]
     ## Maximum Flow Problem
 
-    Define: An st-flow, [Equation] f [/Equation], is a function that satisfies:
+    Define: An st-flow, [Equation] f [/Equation], is a function that satisfies the following contraints:
 
     * (Capacity) - For each [Equation] e \in E:  0 \leq f_e \leq c_e [/Equation]
 
     * (Flow conservation) - For each [Equation] v \in V - ({s,t}):  \Sigma f_e [/Equation]  (e out of v) [Equation] - \Sigma f_e  [/Equation] (e in to v)
-
-    The value of flow, [Equation] f [/Equation], is:
-
-    * val(f) = [Equation]  \Sigma f_e [/Equation]  (e out of v) [Equation] -  \Sigma f_e  [/Equation] (e in to v)
 
     In other words, a maximum possible flow from s to t exists based on these two constraints:
 
     * Flow on an edge doesn’t exceed the given capacity of the edge.
 
     * Incoming flow is equal to outgoing flow for every vertex in the network, except for the source (S) and sink (T).
+
+    The value of flow, [Equation] f [/Equation], is:
+
+    * val(f) = [Equation]  \Sigma f_e [/Equation]  (e out of v) [Equation] -  \Sigma f_e  [/Equation] (e in to v)
 
     In the case of the graph on the right, the max flow is 6! 5 units flow through the top pipes and 1 unit flows through the bottom.
 
@@ -183,7 +183,7 @@ You can learn more about these applications and how they apply to the maximum fl
 
     ---------------------------
 
-    
+
     Basic idea for how to do this, leaving everything else in the algorithm unchanged:
     When computing the residual graph given the current flow graph, add some additional edges...
     These additional edges will have the same weight as edges in the flow graph, but that point in the opposite direction! Call these additional edges backward edges.
