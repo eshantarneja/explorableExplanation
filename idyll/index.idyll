@@ -120,6 +120,21 @@ You can learn more about these applications and how they apply to the maximum fl
   [/Step]
 
   [Step]
+    ## Residual Flow
+
+    Along with pushing flow through the network from source to sink, for every graph there exists a residual network that goes from sink to source.
+    The residual graph will always be equal to the original capacity of the edge minus current flow. If there is a path in the residual network that
+    goes from the source node to the sink node, then more flow can be pushed through the network.
+
+    Let's go through the example above again but showing the residual graph.
+
+    As you can see, There are paths of 5 along the top (0-1-2-5) and 8 along the bottom (0-3-4-5).
+
+    Now there is 1 path left on the residual graph (0-1-3-4-5) which can have 2 flow pushed through it.
+
+  [/Step]
+
+  [Step]
     ## Greedy Algorithm
 
     These are the following steps that a greedy algorithm would take to solve the maximum flow problem:
@@ -128,22 +143,6 @@ You can learn more about these applications and how they apply to the maximum fl
     * Find an s↝t path P where each edge has [Equation] f_e < c_e [/Equation].
     * Augment flow along path P.
     * Repeat until you get stuck.
-
-  [/Step]
-
-  [Step]
-    ## Residual Flow
-
-    Along with pushing flow through the network from source to sink, for every graph there exists a residual network that goes from sink to source.
-    The residual graph will always be equal to the original capacity of the edge minus current flow.
-
-  [/Step]
-
-  [Step]
-    ## Residual Flow
-
-    Along with pushing flow through the network from source to sink, for every graph there exists a residual network that goes from sink to source.
-    The residual graph will always be equal to the original capacity of the edge minus current flow.
 
   [/Step]
 

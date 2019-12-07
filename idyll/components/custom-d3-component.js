@@ -100,12 +100,12 @@ class CustomD3Component extends D3Component {
     .data(links)
     .enter()
     .append("text")
-    .attr("x", function(d){ return (nodes[d.target].x + nodes[d.source].x)/2})
+    .attr("x", function(d){ return (nodes[d.target].x + nodes[d.source].x)/2 - 15})
     .attr("y", function(d){ return (nodes[d.target].y + nodes[d.source].y)/2})
     .attr("id", function(d) {return "movingCapacity"+d.id;})
-    .text(function(d){return d.capacity})
-    .attr("font-size", "40px")
-    .attr("fill","red")
+    .text(function(d){return "0/"+d.capacity})
+    .attr("font-size", "30px")
+    .attr("fill","black")
     .attr("class","movingCapacity")
     .attr("opacity","0")
 
@@ -145,21 +145,25 @@ class CustomD3Component extends D3Component {
     else if (props.state==2){
       console.log("state=2")
       this.step2AddWater(props,oldProps)
-
-      this.svg
-      .selectAll('text')
-      .transition()
-      .attr("fill","red")
     }
     else if (props.state==4){
       this.step4SimpleFlow(props,oldProps)
       console.log("state=4")
     }
+    else if (props.state==5){
+      this.svg
+      .selectAll('text')
+      .transition()
+      .attr("fill","red")
+      this.step6Residual(props,oldProps)
+      console.log("state=5")
+      fillCapacities(this);
+    }
     else{
       this.svg
       .selectAll('line')
       .attr("stroke","black")
-      console.log("state=else")
+      console.log("state="+props.state)
 
     }
 
@@ -478,6 +482,165 @@ class CustomD3Component extends D3Component {
 
     // .attr("stroke", "blue");
   }
+
+  step6Residual(props, oldProps) {
+    this.svg
+    .selectAll('line')
+    .attr("stroke","black")
+    .attr("stroke-width",2)
+
+    fillCapacities(this);
+
+    var t1 = 1000;
+    var t2 = 2000;
+    var t3 = 3000;
+    var t4 = 4000;
+    var t5 = 5000;
+    var t6 = 6000;
+    var t7 = 7000;
+    var t8 = 8500;
+    var t9 = 9500;
+    var t10 = 10000;
+    var t11 = 11000;
+
+    this.svg
+    .selectAll("line").filter(function(d) {return this.id == "line0"})
+    .transition()
+    .delay(t1)
+    .attr("stroke", "orange")
+    .attr("stroke-width",3)
+    .attr("opacity", 1)
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity0"})
+    .transition()
+    .delay(t1)
+    .text("5/10")
+
+    this.svg
+    .selectAll("line").filter(function(d) {return this.id == "line2"})
+    .transition()
+    .delay(t2)
+    .attr("stroke", "orange")
+    .attr("stroke-width",3)
+    .attr("opacity", 1)
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity2"})
+    .transition()
+    .delay(t2)
+    .text("0/5")
+
+    this.svg
+    .selectAll("line").filter(function(d) {return this.id == "line4"})
+    .transition()
+    .delay(t3)
+    .attr("stroke", "orange")
+    .attr("stroke-width",3)
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity4"})
+    .transition()
+    .delay(t3)
+    .text("2/7")
+
+    this.svg
+    .selectAll("line").filter(function(d) {return this.id == "line1"})
+    .transition()
+    .delay(t4)
+    .attr("stroke", "orange")
+    .attr("stroke-width",3)
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity1"})
+    .transition()
+    .delay(t4)
+    .text("0/8")
+
+    this.svg
+    .selectAll("line").filter(function(d) {return this.id == "line5"})
+    .transition()
+    .delay(t5)
+    .attr("stroke", "orange")
+    .attr("stroke-width",3)
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity5"})
+    .transition()
+    .delay(t5)
+    .text("2/10")
+
+    this.svg
+    .selectAll("line").filter(function(d) {return this.id == "line7"})
+    .transition()
+    .delay(t6)
+    .attr("stroke", "orange")
+    .attr("stroke-width",3)
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity7"})
+    .transition()
+    .delay(t6)
+    .text("2/10")
+
+    this.svg
+    .selectAll("line").filter(function(d) {return this.id == "line0"})
+    .transition()
+    .delay(t7)
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity0"})
+    .transition()
+    .delay(t7)
+    .text("3/10")
+
+    this.svg
+    .selectAll("line").filter(function(d) {return this.id == "line3"})
+    .transition()
+    .delay(t8)
+    .attr("stroke", "orange")
+    .attr("stroke-width",3)
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity3"})
+    .transition()
+    .delay(t8)
+    .text("0/2")
+
+    this.svg
+    .selectAll("line").filter(function(d) {return this.id == "line5"})
+    .transition()
+    .delay(t9)
+    .attr("stroke", "orange")
+    .attr("stroke-width",3)
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity5"})
+    .transition()
+    .delay(t9)
+    .text("0/10")
+
+    this.svg
+    .selectAll("line").filter(function(d) {return this.id == "line7"})
+    .transition()
+    .delay(t10)
+    .attr("stroke", "orange")
+    .attr("stroke-width",3)
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity7"})
+    .transition()
+    .delay(t10)
+    .text("0/10")
+
+    this.svg
+    .selectAll("line")
+    .transition()
+    .delay(t11)
+    .attr("stroke", "black")
+    .attr("stroke-width",2)
+    .on("end",fillCapacities(this))
+  }
 }
 
 function placeText(source, target, attr) {
@@ -490,6 +653,82 @@ function placeText(source, target, attr) {
   else {
     return target.y + source.y/2;
   }
+}
+
+function clearCapacities(t){
+  t.svg
+    .selectAll("text")
+    .attr("stroke","black")
+
+  t.svg
+  .selectAll("text").filter(function(d) {return this.id == "movingCapacity0"})
+  .text("0/10")
+
+  t.svg
+  .selectAll("text").filter(function(d) {return this.id == "movingCapacity1"})
+  .text("0/8")
+
+  t.svg
+  .selectAll("text").filter(function(d) {return this.id == "movingCapacity2"})
+  .text("0/5")
+
+  t.svg
+  .selectAll("text").filter(function(d) {return this.id == "movingCapacity3"})
+  .text("0/2")
+
+  t.svg
+  .selectAll("text").filter(function(d) {return this.id == "movingCapacity4"})
+  .text("0/7")
+
+  t.svg
+  .selectAll("text").filter(function(d) {return this.id == "movingCapacity5"})
+  .text("0/10")
+
+  t.svg
+  .selectAll("text").filter(function(d) {return this.id == "movingCapacity6"})
+  .text("0/8")
+
+  t.svg
+  .selectAll("text").filter(function(d) {return this.id == "movingCapacity7"})
+  .text("0/10")
+}
+
+function fillCapacities(t){
+  t.svg
+    .selectAll("text")
+    .attr("stroke","black")
+
+  t.svg
+  .selectAll("text").filter(function(d) {return this.id == "movingCapacity0"})
+  .text("10/10")
+
+  t.svg
+  .selectAll("text").filter(function(d) {return this.id == "movingCapacity1"})
+  .text("8/8")
+
+  t.svg
+  .selectAll("text").filter(function(d) {return this.id == "movingCapacity2"})
+  .text("5/5")
+
+  t.svg
+  .selectAll("text").filter(function(d) {return this.id == "movingCapacity3"})
+  .text("2/2")
+
+  t.svg
+  .selectAll("text").filter(function(d) {return this.id == "movingCapacity4"})
+  .text("7/7")
+
+  t.svg
+  .selectAll("text").filter(function(d) {return this.id == "movingCapacity5"})
+  .text("10/10")
+
+  t.svg
+  .selectAll("text").filter(function(d) {return this.id == "movingCapacity6"})
+  .text("8/8")
+
+  t.svg
+  .selectAll("text").filter(function(d) {return this.id == "movingCapacity7"})
+  .text("10/10")
 }
 
 module.exports = CustomD3Component;
