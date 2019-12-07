@@ -153,6 +153,23 @@ You can learn more about these applications and how they apply to the maximum fl
 
 In the examples below, please select your guess for Max Flow and Min Cut (To be added later)
 
+
+[var name:"myVar" value:"0" /]
+
+[var name:"textVal" value:"Enter Flow Number" /]
+
+
+What is the Maximum Flow of the Network? [TextInput value:textVal /]
+
+
+[Conditional if:`textVal=="Enter Flow"`][/Conditional]
+[Conditional if:`textVal==1`] Correct![button  className:"helpButton" onClick:`myVar += 1`]Click For Walkthrough[/button][/Conditional]
+[Conditional if:`textVal>1`] Incorrect [button  className:"helpButton" onClick:`myVar += 1`]Click For Help![/button][/Conditional]
+[Conditional if:`textVal<1`] Incorrect [button  className:"helpButton" onClick:`myVar += 1`]Click For Help![/button][/Conditional]
+
+
+
 [Graphic className:"new-component-container"]
-    [NewD3Component className:"new-component" /]
-  [/Graphic]
+    [NewD3Component className:"new-component" myVar:`myVar` /]
+[/Graphic]
+
