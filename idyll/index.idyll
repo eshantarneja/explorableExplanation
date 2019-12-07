@@ -149,17 +149,15 @@ You can learn more about these applications and how they apply to the maximum fl
 
 [/Scroller]
 
-## Test your Knowledge
+# Test your Knowledge
 
-In the examples below, please select your guess for Max Flow and Min Cut (To be added later)
-
+## Question 1. Minimum Cut
 
 [var name:"myVar" value:"0" /]
 
-[var name:"textVal" value:"Enter Flow Number" /]
+[var name:"textVal" value:"Answer" /]
 
-
-What is the Maximum Flow of the Network? [TextInput value:textVal /]
+Use the Min Cut Method to calulate the Maximum Flow in the following network:  [TextInput value:textVal /]
 
 
 [Conditional if:`textVal=="Enter Flow"`][/Conditional]
@@ -172,4 +170,8 @@ What is the Maximum Flow of the Network? [TextInput value:textVal /]
 [Graphic className:"new-component-container"]
     [NewD3Component className:"new-component" myVar:`myVar` /]
 [/Graphic]
+
+## Question 2. Ford Fulkerson
+
+Using the Ford Fulkerson Algorithm, select the flow through each edge
 
