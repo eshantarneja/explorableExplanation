@@ -25,12 +25,12 @@ class CustomD3Component extends D3Component {
 
 
     var nodes = [
-              { x:   width*.00, y: height*.50, id: 0},
-              { x:   width*.35, y: height*.35, id: 1},
-              { x:   width*.65, y: height*.35, id: 2},
-              { x:   width*.35, y: height*.65, id: 3},
-              { x:   width*.65, y: height*.65, id: 4},
-              { x:   width*1.0, y: height*.50, id: 5},
+              { x:   width*.00, y: height*.50, id: 0, text: "S"},
+              { x:   width*.35, y: height*.35, id: 1, text: "A"},
+              { x:   width*.65, y: height*.35, id: 2, text: "B"},
+              { x:   width*.35, y: height*.65, id: 3, text: "C"},
+              { x:   width*.65, y: height*.65, id: 4, text: "D"},
+              { x:   width*1.0, y: height*.50, id: 5, text: "T"},
     ];
 
     var links = [
@@ -67,9 +67,9 @@ class CustomD3Component extends D3Component {
       .attr("x2", function(d) { return nodes[d.target].x; })
       .attr("y2", function(d) { return nodes[d.target].y; })
       .attr("stroke-width", 2)
-      .attr("stroke","lightgrey")
+      .attr("stroke","grey")
       .attr("id",function(d) {return "line"+d.id;})
-      .style("opacity", 0.3)
+      .style("opacity", 1)
       .attr("marker-end", "url(#triangle)");
 
     // append nodes:
@@ -93,8 +93,7 @@ class CustomD3Component extends D3Component {
       .attr("y", function(d) { return d.y+7; })
       .attr("z-index", 5)
       .attr("font-size",25)
-      .text(function(d){return d.id});
-
+      .text(function(d){return d.text});
 
     svg.selectAll()
     .data(links)
@@ -107,7 +106,7 @@ class CustomD3Component extends D3Component {
     .attr("font-size", "40px")
     .attr("fill","red")
     .attr("class","movingCapacity")
-    .attr("opacity","0")
+    // .attr("opacity","0")
 
 
     var header = svg.selectAll()
@@ -126,24 +125,47 @@ class CustomD3Component extends D3Component {
   // To update our graphic all we need to do is check the state number and update
 
   update(props, oldProps) {
+    //init state
     if (props.state==0){
       console.log("state=0")
       this.step0(props,oldProps)
     }
+    // show vertices graphic
     else if (props.state==1){
+      console.log("state=1")
+      this.showVert(props,oldProps)
+    }
+    // show edges graphic
+    else if (props.state==2){
+      console.log("state=2")
+      this.showEdge(props,oldProps)
+    }
+    // show capacities graphic
+    else if (props.state==3){
+      console.log("state=3")
+      this.showCap(props,oldProps)
+    }
+    // show network flow graphic
+    else if (props.state==4){
+      console.log("state=4")
+      this.showNet(props,oldProps)
+    }
+    // simple example
+    else if (props.state==5){
+      console.log("state=5")
       this.svg
       .selectAll('text')
       .transition()
       .attr("fill","blue")
-      console.log("state=1")
+      // console.log("state=1")
 
       this.svg
       .selectAll('line')
       .attr("stroke","black")
 
     }
-    else if (props.state==2){
-      console.log("state=2")
+    else if (props.state==6){
+      console.log("state=6")
       this.step2AddWater(props,oldProps)
 
       this.svg
@@ -151,9 +173,9 @@ class CustomD3Component extends D3Component {
       .transition()
       .attr("fill","red")
     }
-    else if (props.state==4){
+    else if (props.state==7){
       this.step4SimpleFlow(props,oldProps)
-      console.log("state=4")
+      console.log("state=7")
     }
     else{
       this.svg
@@ -170,68 +192,50 @@ class CustomD3Component extends D3Component {
     .selectAll("line")
     .attr("stroke", "black");
 
-    var t1 = 2000
-    var t2 = 4000
-    var t3 = 6000
-    var t4 = 8000
+    var t1 = 20
+    var t2 = 40
+    var t3 = 60
+    var t4 = 80
 
     // show vertices only
     this.svg
     .selectAll(".header")
-    .transition()
-    .delay(t1)
     .text("VERTICES")
 
     this.svg
     .selectAll("line")
-    .transition()
-    .delay(t1)
     .attr("opacity",0)
 
     this.svg
     .selectAll(".movingCapacity")
-    .transition()
-    .delay(t1)
     .attr("opacity",0)
 
     // show edges only
 
     this.svg
     .selectAll("line")
-    .transition()
-    .delay(t2)
     .attr("opacity",1)
 
     this.svg
     .selectAll(".nodeVals")
-    .transition()
-    .delay(t2)
     .attr("opacity",0)
 
     this.svg
     .selectAll("circle")
-    .transition()
-    .delay(t2)
     .attr("opacity",0)
 
     this.svg
     .selectAll(".header")
-    .transition()
-    .delay(t2)
     .text("EDGES")
 
     //show capacities
 
     this.svg
     .selectAll(".header")
-    .transition()
-    .delay(t3)
     .text("CAPACITIES")
 
     this.svg
     .selectAll(".movingCapacity")
-    .transition()
-    .delay(t3)
     .attr("opacity",1)
 
 
@@ -239,23 +243,157 @@ class CustomD3Component extends D3Component {
 
     this.svg
     .selectAll("circle")
-    .transition()
-    .delay(t4)
     .attr("opacity",1)
 
     this.svg
     .selectAll(".header")
-    .transition()
-    .delay(t4)
     .text("NETWORK FLOW")
 
     this.svg
     .selectAll(".nodeVals")
-    .transition()
-    .delay(t4)
     .attr("opacity",1)
   }
 
+
+  showVert(props,oldProps){
+    // this.svg
+    // .selectAll("line")
+    // .attr("stroke", "black");
+
+    // show vertices only
+    this.svg
+    .selectAll(".header")
+    .text("VERTICES")
+
+    this.svg
+    .selectAll(".nodeVals")
+    .attr("opacity",1)
+
+    this.svg
+    .selectAll("marker")
+    .attr("opacity", 0)
+
+    this.svg
+    .selectAll("circle")
+    .attr("opacity",1)
+
+    this.svg
+    .selectAll("line")
+    .attr("opacity", 0)
+    .attr("stroke", "#ddd")
+
+    this.svg
+    .selectAll("links")
+    .attr("opacity", 0)
+    .attr("stroke", "#ddd")
+
+    this.svg
+    .selectAll(".movingCapacity")
+    .attr("opacity",0)
+  }
+
+  showEdge(props,oldProps){
+    // show edges only
+
+    this.svg
+    .selectAll("line")
+    .attr("opacity",1)
+    .attr("stroke", "grey")
+
+    this.svg
+    .selectAll("links")
+    .attr("stroke","grey")
+
+    this.svg
+    .selectAll("marker")
+    .attr("opacity", 1)
+
+    this.svg
+    .selectAll(".nodeVals")
+    .attr("opacity",0)
+
+    this.svg
+    .selectAll("circle")
+    .attr("opacity",0)
+
+    this.svg
+    .selectAll(".header")
+    .text("EDGES")
+
+    this.svg
+    .selectAll(".movingCapacity")
+    .attr("opacity",0)
+  }
+
+    showCap(props,oldProps){
+    // show edges only
+
+    this.svg
+    .selectAll("line")
+    .attr("opacity",1)
+    .attr("stroke", "grey")
+
+    this.svg
+    .selectAll("links")
+    .attr("stroke","grey")
+
+    this.svg
+    .selectAll("marker")
+    .attr("opacity", 1)
+
+    this.svg
+    .selectAll(".nodeVals")
+    .attr("opacity",0)
+
+    this.svg
+    .selectAll("circle")
+    .attr("opacity",0)
+
+    this.svg
+    .selectAll(".header")
+    .text("CAPACITIES")
+
+    this.svg
+    .selectAll(".movingCapacity")
+    .attr("opacity",1)
+  }
+
+  showNet(props,oldProps){
+    var t2 = 20
+
+    // show edges only
+
+    this.svg
+    .selectAll("line")
+    .attr("opacity",1)
+    .attr("stroke", "grey")
+
+    this.svg
+    .selectAll("links")
+    .attr("stroke","grey")
+
+    this.svg
+    .selectAll("marker")
+    .attr("opacity", 1)
+
+    this.svg
+    .selectAll(".nodeVals")
+    .attr("opacity",1)
+
+    this.svg
+    .selectAll("circle")
+    .attr("opacity",1)
+
+    this.svg
+    .selectAll(".header")
+    .text("NETWORK FLOW")
+
+    this.svg
+    .selectAll(".movingCapacity")
+    .attr("opacity",1)
+  }
+
+  
   step2AddWater(props, oldProps) {
 
     this.svg
