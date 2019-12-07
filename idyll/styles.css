@@ -9,15 +9,15 @@
 }
 
 .idyll-scroll .idyll-text-container {
-  max-width: 50vw;
+  max-width: 45vw;
 }
 .idyll-scroll-text .idyll-step {
   max-width: 45vw;
 }
 .d3-component-container {
-  height: 20vw;
-  width: 20vw;
-  margin-left: 72vw;
+  height: 40vw;
+  width: 40vw;
+  margin-left: 50vw;
 }
 #idyll-scroll-1 {
   background: #fffcc1;

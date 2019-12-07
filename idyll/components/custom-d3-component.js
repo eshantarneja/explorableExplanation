@@ -25,18 +25,23 @@ class CustomD3Component extends D3Component {
 
 
     var nodes = [
-    { x:   width*.1, y: height*.5, id: 0},
-    { x:   width*.5, y: height*.1, id: 1},
-    { x:   width*.5, y: height*.9, id: 2},
-    { x:   width*.9, y: height*.5, id: 3},
+              { x:   width*.00, y: height*.50, id: 0},
+              { x:   width*.35, y: height*.35, id: 1},
+              { x:   width*.65, y: height*.35, id: 2},
+              { x:   width*.35, y: height*.65, id: 3},
+              { x:   width*.65, y: height*.65, id: 4},
+              { x:   width*1.0, y: height*.50, id: 5},
     ];
 
     var links = [
-    { source: 0, target: 1, capacity: "0/5", id:0},
-    { source: 0, target: 2, capacity: "0/1", id:1},
-    { source: 2, target: 3, capacity: "0/3", id:2},
-    { source: 1, target: 3, capacity: "0/5", id:3},
-    { source: 1, target: 2, capacity: "0/4", id:4}
+              { source: 0, target: 1, capacity: 10, id: 0},
+              { source: 0, target: 3, capacity: 8, id: 1},
+              { source: 1, target: 2, capacity: 5, id: 2},
+              { source: 1, target: 3, capacity: 2, id: 3},
+              { source: 2, target: 5, capacity: 7, id: 4},
+              { source: 3, target: 4, capacity: 10, id: 5},
+              { source: 4, target: 2, capacity: 8, id: 6},
+              { source: 4, target: 5, capacity: 10, id: 7},
     ];
 
     let lineId = 0;
@@ -54,39 +59,55 @@ class CustomD3Component extends D3Component {
 
     // append links:
     svg.selectAll()
-    .data(links)
-    .enter()
-    .append("line")
-    .attr("x1", function(d) { return nodes[d.source].x; })
-    .attr("y1", function(d) { return nodes[d.source].y; })
-    .attr("x2", function(d) { return nodes[d.target].x; })
-    .attr("y2", function(d) { return nodes[d.target].y; })
-    .attr("id", function(d) { return "line"+d.id})
-    .attr("stroke-width", 5)
-    .attr("stroke","black")
-    .attr("marker-end", "url(#triangle)");
+      .data(links)
+      .enter()
+      .append("line")
+      .attr("x1", function(d) { return nodes[d.source].x; })
+      .attr("y1", function(d) { return nodes[d.source].y; })
+      .attr("x2", function(d) { return nodes[d.target].x; })
+      .attr("y2", function(d) { return nodes[d.target].y; })
+      .attr("stroke-width", 2)
+      .attr("stroke","lightgrey")
+      .attr("id",function(d) {return "line"+d.id;})
+      .style("opacity", 0.3)
+      .attr("marker-end", "url(#triangle)");
 
     // append nodes:
     svg.selectAll()
-    .data(nodes)
-    .enter()
-    .append("circle")
-    .attr("cx", function(d) { return d.x; })
-    .attr("cy", function(d) { return d.y; })
-    .attr("r", 15);
+      .data(nodes)
+      .enter()
+      .append("circle")
+      .attr("cx", function(d) { return d.x; })
+      .attr("cy", function(d) { return d.y; })
+      .attr("r", 17)
+      .attr("stroke","green")
+      .attr("fill", "lightgreen")
+
+    svg.selectAll()
+      .data(nodes)
+      .enter()
+      .append("g")
+      .append("text")
+      .attr("class","nodeVals")
+      .attr("x", function(d) { return d.x-7; })
+      .attr("y", function(d) { return d.y+7; })
+      .attr("z-index", 5)
+      .attr("font-size",25)
+      .text(function(d){return d.id});
 
 
-    svg.selectAll("text")
+    svg.selectAll()
     .data(links)
     .enter()
     .append("text")
     .attr("x", function(d){ return (nodes[d.target].x + nodes[d.source].x)/2})
     .attr("y", function(d){ return (nodes[d.target].y + nodes[d.source].y)/2})
-    .attr("id", function(d) { return "text"+d.id})
+    .attr("id", function(d) {return "movingCapacity"+d.id;})
     .text(function(d){return d.capacity})
     .attr("font-size", "40px")
     .attr("fill","red")
-    .attr("class","capacity")
+    .attr("class","movingCapacity")
+    .attr("opacity","0")
 
 
     var header = svg.selectAll()
@@ -106,6 +127,7 @@ class CustomD3Component extends D3Component {
 
   update(props, oldProps) {
     if (props.state==0){
+      console.log("state=0")
       this.step0(props,oldProps)
     }
     else if (props.state==1){
@@ -121,17 +143,17 @@ class CustomD3Component extends D3Component {
 
     }
     else if (props.state==2){
+      console.log("state=2")
       this.step2AddWater(props,oldProps)
 
       this.svg
       .selectAll('text')
       .transition()
       .attr("fill","red")
-      console.log("state=else")
     }
     else if (props.state==4){
       this.step4SimpleFlow(props,oldProps)
-      console.log("state=3")
+      console.log("state=4")
     }
     else{
       this.svg
@@ -167,7 +189,7 @@ class CustomD3Component extends D3Component {
     .attr("opacity",0)
 
     this.svg
-    .selectAll(".capacity")
+    .selectAll(".movingCapacity")
     .transition()
     .delay(t1)
     .attr("opacity",0)
@@ -179,6 +201,12 @@ class CustomD3Component extends D3Component {
     .transition()
     .delay(t2)
     .attr("opacity",1)
+
+    this.svg
+    .selectAll(".nodeVals")
+    .transition()
+    .delay(t2)
+    .attr("opacity",0)
 
     this.svg
     .selectAll("circle")
@@ -201,7 +229,7 @@ class CustomD3Component extends D3Component {
     .text("CAPACITIES")
 
     this.svg
-    .selectAll(".capacity")
+    .selectAll(".movingCapacity")
     .transition()
     .delay(t3)
     .attr("opacity",1)
@@ -220,6 +248,12 @@ class CustomD3Component extends D3Component {
     .transition()
     .delay(t4)
     .text("NETWORK FLOW")
+
+    this.svg
+    .selectAll(".nodeVals")
+    .transition()
+    .delay(t4)
+    .attr("opacity",1)
   }
 
   step2AddWater(props, oldProps) {
@@ -238,100 +272,209 @@ class CustomD3Component extends D3Component {
   }
 
   step4SimpleFlow(props, oldProps) {
-    var t1 = 1000
-    var t2 = 2000
-    var t3 = 3000
-    var t4 = 4000
-    var t5 = 6500
+    var t1 = 1000;
+    var t2 = 2000;
+    var t3 = 3000;
+    var t4 = 4000;
+    var t5 = 5000;
+    var t6 = 6000;
+    var t7 = 7000;
+    var t8 = 8500;
+    var t9 = 9500;
+    var t10 = 10000;
+    var t11 = 11000;
 
     this.svg
     .selectAll("line")
     .transition()
     .attr("stroke", "black")
-    .attr("stroke-width",5)
+    .attr("stroke-width",2)
+
 
     this.svg
     .selectAll("line").filter(function(d) {return this.id == "line0"})
     .transition()
     .delay(t1)
     .attr("stroke", "blue")
-    .attr("stroke-width",8)
+    .attr("stroke-width",3)
+    .attr("opacity", 1)
 
     this.svg
-    .selectAll("text").filter(function(d) {return this.id == "text0"})
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity0"})
     .transition()
     .delay(t1)
-    .text("5/5")
-
-    this.svg
-    .selectAll("line").filter(function(d) {return this.id == "line3"})
-    .transition()
-    .delay(t2)
-    .attr("stroke", "blue")
-    .attr("stroke-width",8)
-
-    this.svg
-    .selectAll("text").filter(function(d) {return this.id == "text3"})
-    .transition()
-    .delay(t2)
-    .text("5/5")
-
-    this.svg
-    .selectAll("line").filter(function(d) {return this.id == "line1"})
-    .transition()
-    .delay(t3)
-    .attr("stroke", "blue")
-    .attr("stroke-width",8)
-
-    this.svg
-    .selectAll("text").filter(function(d) {return this.id == "text1"})
-    .transition()
-    .delay(t3)
-    .text("1/1")
+    .text("5/10")
 
     this.svg
     .selectAll("line").filter(function(d) {return this.id == "line2"})
     .transition()
-    .delay(t4)
+    .delay(t2)
     .attr("stroke", "blue")
-    .attr("stroke-width",8)
+    .attr("stroke-width",3)
+    .attr("opacity", 1)
 
     this.svg
-    .selectAll("text").filter(function(d) {return this.id == "text2"})
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity2"})
+    .transition()
+    .delay(t2)
+    .text("5/5")
+
+    this.svg
+    .selectAll("line").filter(function(d) {return this.id == "line4"})
+    .transition()
+    .delay(t3)
+    .attr("stroke", "blue")
+    .attr("stroke-width",3)
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity4"})
+    .transition()
+    .delay(t3)
+    .text("5/7")
+
+    this.svg
+    .selectAll("line").filter(function(d) {return this.id == "line1"})
     .transition()
     .delay(t4)
-    .text("1/3")
+    .attr("stroke", "blue")
+    .attr("stroke-width",3)
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity1"})
+    .transition()
+    .delay(t4)
+    .text("8/8")
+
+    this.svg
+    .selectAll("line").filter(function(d) {return this.id == "line5"})
+    .transition()
+    .delay(t5)
+    .attr("stroke", "blue")
+    .attr("stroke-width",3)
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity5"})
+    .transition()
+    .delay(t5)
+    .text("8/10")
+
+    this.svg
+    .selectAll("line").filter(function(d) {return this.id == "line7"})
+    .transition()
+    .delay(t6)
+    .attr("stroke", "blue")
+    .attr("stroke-width",3)
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity7"})
+    .transition()
+    .delay(t6)
+    .text("8/10")
+
+    this.svg
+    .selectAll("line").filter(function(d) {return this.id == "line0"})
+    .transition()
+    .delay(t7)
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity0"})
+    .transition()
+    .delay(t7)
+    .text("7/10")
+
+    this.svg
+    .selectAll("line").filter(function(d) {return this.id == "line3"})
+    .transition()
+    .delay(t8)
+    .attr("stroke", "blue")
+    .attr("stroke-width",3)
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity3"})
+    .transition()
+    .delay(t8)
+    .text("2/2")
+
+    this.svg
+    .selectAll("line").filter(function(d) {return this.id == "line5"})
+    .transition()
+    .delay(t9)
+    .attr("stroke", "blue")
+    .attr("stroke-width",3)
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity5"})
+    .transition()
+    .delay(t9)
+    .text("10/10")
+
+    this.svg
+    .selectAll("line").filter(function(d) {return this.id == "line7"})
+    .transition()
+    .delay(t10)
+    .attr("stroke", "blue")
+    .attr("stroke-width",3)
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity7"})
+    .transition()
+    .delay(t10)
+    .text("10/10")
 
     this.svg
     .selectAll("line")
     .transition()
-    .delay(t5)
+    .delay(t11)
     .attr("stroke", "black")
-    .attr("stroke-width",5)
+    .attr("stroke-width",2)
 
     this.svg
-    .selectAll("text").filter(function(d) {return this.id == "text0"})
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity0"})
     .transition()
-    .delay(t5)
+    .delay(t11)
+    .text("0/10")
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity1"})
+    .transition()
+    .delay(t11)
+    .text("0/8")
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity2"})
+    .transition()
+    .delay(t11)
     .text("0/5")
 
     this.svg
-    .selectAll("text").filter(function(d) {return this.id == "text1"})
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity3"})
     .transition()
-    .delay(t5)
-    .text("0/1")
+    .delay(t11)
+    .text("0/2")
 
     this.svg
-    .selectAll("text").filter(function(d) {return this.id == "text2"})
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity4"})
     .transition()
-    .delay(t5)
-    .text("0/3")
+    .delay(t11)
+    .text("0/7")
 
     this.svg
-    .selectAll("text").filter(function(d) {return this.id == "text3"})
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity5"})
     .transition()
-    .delay(t5)
-    .text("0/5")
+    .delay(t11)
+    .text("0/10")
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity6"})
+    .transition()
+    .delay(t11)
+    .text("0/8")
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity7"})
+    .transition()
+    .delay(t11)
+    .text("0/10")
 
     // .attr("stroke", "blue");
   }
