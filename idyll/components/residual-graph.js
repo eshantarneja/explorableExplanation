@@ -4,7 +4,7 @@ const d3 = require('d3');
 
 const size = 500;
 
-class CustomD3Component extends D3Component {
+class residualGraph extends D3Component {
   initialize(node, props) {
     const svg = (this.svg = d3.select(node).append('svg'));
 
@@ -108,7 +108,6 @@ class CustomD3Component extends D3Component {
     .attr("class","movingCapacity")
     // .attr("opacity","0")
 
-
     var header = svg.selectAll()
     .data(links)
     .enter()
@@ -118,8 +117,6 @@ class CustomD3Component extends D3Component {
     .attr("x", 50)
     .attr("y",50)
     .attr("font-size", "40px")
-
-
   }
   // each "step" in the idyll file has a number associated with it.
   // To update our graphic all we need to do is check the state number and update
@@ -130,64 +127,15 @@ class CustomD3Component extends D3Component {
       console.log("state=0")
       this.step0(props,oldProps)
     }
-    // show vertices graphic
     else if (props.state==1){
+      this.residual(props,oldProps)
       console.log("state=1")
-      this.showVert(props,oldProps)
-    }
-    // show edges graphic
-    else if (props.state==2){
-      console.log("state=2")
-      this.showEdge(props,oldProps)
-    }
-    // show capacities graphic
-    else if (props.state==3){
-      console.log("state=3")
-      this.showCap(props,oldProps)
-    }
-    // show network flow graphic
-    else if (props.state==4){
-      console.log("state=4")
-      this.showNet(props,oldProps)
-    }
-    // simple example
-    else if (props.state==5){
-      console.log("state=5")
-      this.svg
-      .selectAll('text')
-      .transition()
-      .attr("fill","blue")
-      // console.log("state=1")
-
-      this.svg
-      .selectAll('line')
-      .attr("stroke","black")
-
-    }
-    else if (props.state==6){
-      console.log("state=6")
-      this.step2AddWater(props,oldProps)
-
-      this.svg
-      .selectAll('text')
-      .transition()
-      .attr("fill","red")
-    }
-    // simple example
-    else if (props.state==7){
-      this.step4SimpleFlow(props,oldProps)
-      console.log("state=7")
-    }
-    else if (props.state==8){
-      this.step8Residual(props,oldProps)
-      console.log("state=7")
     }
     else{
       this.svg
       .selectAll('line')
       .attr("stroke","black")
       console.log("state=else")
-
     }
   }
 
@@ -258,366 +206,7 @@ class CustomD3Component extends D3Component {
     .attr("opacity",1)
   }
 
-  showVert(props,oldProps){
-    // this.svg
-    // .selectAll("line")
-    // .attr("stroke", "black");
-
-    // show vertices only
-    this.svg
-    .selectAll(".header")
-    .text("VERTICES")
-
-    this.svg
-    .selectAll(".nodeVals")
-    .attr("opacity",1)
-
-    this.svg
-    .selectAll("marker")
-    .attr("opacity", 0)
-
-    this.svg
-    .selectAll("circle")
-    .attr("opacity",1)
-
-    this.svg
-    .selectAll("line")
-    .attr("opacity", 0)
-    .attr("stroke", "#ddd")
-
-    this.svg
-    .selectAll("links")
-    .attr("opacity", 0)
-    .attr("stroke", "#ddd")
-
-    this.svg
-    .selectAll(".movingCapacity")
-    .attr("opacity",0)
-  }
-
-  showEdge(props,oldProps){
-    // show edges only
-
-    this.svg
-    .selectAll("line")
-    .attr("opacity",1)
-    .attr("stroke", "grey")
-
-    this.svg
-    .selectAll("links")
-    .attr("stroke","grey")
-
-    this.svg
-    .selectAll("marker")
-    .attr("opacity", 1)
-
-    this.svg
-    .selectAll(".nodeVals")
-    .attr("opacity",0)
-
-    this.svg
-    .selectAll("circle")
-    .attr("opacity",0)
-
-    this.svg
-    .selectAll(".header")
-    .text("EDGES")
-
-    this.svg
-    .selectAll(".movingCapacity")
-    .attr("opacity",0)
-  }
-
-  showCap(props,oldProps){
-    // show edges only
-
-    this.svg
-    .selectAll("line")
-    .attr("opacity",1)
-    .attr("stroke", "grey")
-
-    this.svg
-    .selectAll("links")
-    .attr("stroke","grey")
-
-    this.svg
-    .selectAll("marker")
-    .attr("opacity", 1)
-
-    this.svg
-    .selectAll(".nodeVals")
-    .attr("opacity",0)
-
-    this.svg
-    .selectAll("circle")
-    .attr("opacity",0)
-
-    this.svg
-    .selectAll(".header")
-    .text("CAPACITIES")
-
-    this.svg
-    .selectAll(".movingCapacity")
-    .attr("opacity",1)
-  }
-
-  showNet(props,oldProps){
-    var t2 = 20
-
-    // show edges only
-
-    this.svg
-    .selectAll("line")
-    .attr("opacity",1)
-    .attr("stroke", "grey")
-
-    this.svg
-    .selectAll("links")
-    .attr("stroke","grey")
-
-    this.svg
-    .selectAll("marker")
-    .attr("opacity", 1)
-
-    this.svg
-    .selectAll(".nodeVals")
-    .attr("opacity",1)
-
-    this.svg
-    .selectAll("circle")
-    .attr("opacity",1)
-
-    this.svg
-    .selectAll(".header")
-    .text("NETWORK FLOW")
-
-    this.svg
-    .selectAll(".movingCapacity")
-    .attr("opacity",1)
-  }
-
-  step2AddWater(props, oldProps) {
-
-    this.svg
-    .selectAll("line").filter(function(d) { return this.x1.animVal["value"] != this.x2.animVal["value"]})
-    .attr("stroke", "blue");
-
-    // this.svg
-    // .selectAll("text").filter(function(d) { console.log(this.x)})
-    // .attr("fill", "blue");
-
-
-    console.log("trying to add simple blue rectangles")
-  }
-
-  step4SimpleFlow(props, oldProps) {
-    var t1 = 1000;
-    var t2 = 2000;
-    var t3 = 3000;
-    var t4 = 4000;
-    var t5 = 5000;
-    var t6 = 6000;
-    var t7 = 7000;
-    var t8 = 8500;
-    var t9 = 9500;
-    var t10 = 10000;
-    var t11 = 11000;
-
-    this.svg
-    .selectAll("line")
-    .transition()
-    .attr("stroke", "black")
-    .attr("stroke-width",2)
-
-    this.svg
-    .selectAll("line").filter(function(d) {return this.id == "line0"})
-    .transition()
-    .delay(t1)
-    .attr("stroke", "blue")
-    .attr("stroke-width",3)
-    .attr("opacity", 1)
-
-    this.svg
-    .selectAll("text").filter(function(d) {return this.id == "movingCapacity0"})
-    .transition()
-    .delay(t1)
-    .text("5/10")
-
-    this.svg
-    .selectAll("line").filter(function(d) {return this.id == "line2"})
-    .transition()
-    .delay(t2)
-    .attr("stroke", "blue")
-    .attr("stroke-width",3)
-    .attr("opacity", 1)
-
-    this.svg
-    .selectAll("text").filter(function(d) {return this.id == "movingCapacity2"})
-    .transition()
-    .delay(t2)
-    .text("5/5")
-
-    this.svg
-    .selectAll("line").filter(function(d) {return this.id == "line4"})
-    .transition()
-    .delay(t3)
-    .attr("stroke", "blue")
-    .attr("stroke-width",3)
-
-    this.svg
-    .selectAll("text").filter(function(d) {return this.id == "movingCapacity4"})
-    .transition()
-    .delay(t3)
-    .text("5/7")
-
-    this.svg
-    .selectAll("line").filter(function(d) {return this.id == "line1"})
-    .transition()
-    .delay(t4)
-    .attr("stroke", "blue")
-    .attr("stroke-width",3)
-
-    this.svg
-    .selectAll("text").filter(function(d) {return this.id == "movingCapacity1"})
-    .transition()
-    .delay(t4)
-    .text("8/8")
-
-    this.svg
-    .selectAll("line").filter(function(d) {return this.id == "line5"})
-    .transition()
-    .delay(t5)
-    .attr("stroke", "blue")
-    .attr("stroke-width",3)
-
-    this.svg
-    .selectAll("text").filter(function(d) {return this.id == "movingCapacity5"})
-    .transition()
-    .delay(t5)
-    .text("8/10")
-
-    this.svg
-    .selectAll("line").filter(function(d) {return this.id == "line7"})
-    .transition()
-    .delay(t6)
-    .attr("stroke", "blue")
-    .attr("stroke-width",3)
-
-    this.svg
-    .selectAll("text").filter(function(d) {return this.id == "movingCapacity7"})
-    .transition()
-    .delay(t6)
-    .text("8/10")
-
-    this.svg
-    .selectAll("line").filter(function(d) {return this.id == "line0"})
-    .transition()
-    .delay(t7)
-
-    this.svg
-    .selectAll("text").filter(function(d) {return this.id == "movingCapacity0"})
-    .transition()
-    .delay(t7)
-    .text("7/10")
-
-    this.svg
-    .selectAll("line").filter(function(d) {return this.id == "line3"})
-    .transition()
-    .delay(t8)
-    .attr("stroke", "blue")
-    .attr("stroke-width",3)
-
-    this.svg
-    .selectAll("text").filter(function(d) {return this.id == "movingCapacity3"})
-    .transition()
-    .delay(t8)
-    .text("2/2")
-
-    this.svg
-    .selectAll("line").filter(function(d) {return this.id == "line5"})
-    .transition()
-    .delay(t9)
-    .attr("stroke", "blue")
-    .attr("stroke-width",3)
-
-    this.svg
-    .selectAll("text").filter(function(d) {return this.id == "movingCapacity5"})
-    .transition()
-    .delay(t9)
-    .text("10/10")
-
-    this.svg
-    .selectAll("line").filter(function(d) {return this.id == "line7"})
-    .transition()
-    .delay(t10)
-    .attr("stroke", "blue")
-    .attr("stroke-width",3)
-
-    this.svg
-    .selectAll("text").filter(function(d) {return this.id == "movingCapacity7"})
-    .transition()
-    .delay(t10)
-    .text("10/10")
-
-    this.svg
-    .selectAll("line")
-    .transition()
-    .delay(t11)
-    .attr("stroke", "black")
-    .attr("stroke-width",2)
-
-    this.svg
-    .selectAll("text").filter(function(d) {return this.id == "movingCapacity0"})
-    .transition()
-    .delay(t11)
-    .text("0/10")
-
-    this.svg
-    .selectAll("text").filter(function(d) {return this.id == "movingCapacity1"})
-    .transition()
-    .delay(t11)
-    .text("0/8")
-
-    this.svg
-    .selectAll("text").filter(function(d) {return this.id == "movingCapacity2"})
-    .transition()
-    .delay(t11)
-    .text("0/5")
-
-    this.svg
-    .selectAll("text").filter(function(d) {return this.id == "movingCapacity3"})
-    .transition()
-    .delay(t11)
-    .text("0/2")
-
-    this.svg
-    .selectAll("text").filter(function(d) {return this.id == "movingCapacity4"})
-    .transition()
-    .delay(t11)
-    .text("0/7")
-
-    this.svg
-    .selectAll("text").filter(function(d) {return this.id == "movingCapacity5"})
-    .transition()
-    .delay(t11)
-    .text("0/10")
-
-    this.svg
-    .selectAll("text").filter(function(d) {return this.id == "movingCapacity6"})
-    .transition()
-    .delay(t11)
-    .text("0/8")
-
-    this.svg
-    .selectAll("text").filter(function(d) {return this.id == "movingCapacity7"})
-    .transition()
-    .delay(t11)
-    .text("0/10")
-
-    // .attr("stroke", "blue");
-  }
-
-  step8Residual(props, oldProps) {
+  residual(props, oldProps) {
       this.svg
       .selectAll('line')
       .attr("stroke","black")
@@ -866,5 +455,5 @@ function fillCapacities(t){
   }
 
 
-module.exports = CustomD3Component;
+module.exports = residualGraph;
 
