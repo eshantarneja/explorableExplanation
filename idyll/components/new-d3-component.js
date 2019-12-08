@@ -163,6 +163,17 @@ class NewD3Component extends D3Component {
     .attr("opacity",0)
     .attr("fill","green")
     .text(function(d){return "Max Flow: " + d.max});
+
+    svg.selectAll()
+    .data(cuts)
+    .enter()
+    .append("text")
+    .attr("class", "cutFinalFlow")
+    .attr("x",width*.37)
+    .attr("y",width*.1)
+    .attr("opacity",0)
+    .attr("fill","green")
+    .text("Max Flow = 23");
   }
 
 
@@ -177,9 +188,14 @@ class NewD3Component extends D3Component {
     var wait = 2000
     var op = 1
 
+    this.svg.selectAll('[class^="cut"]')
+    .attr("opacity",0)
 
     this.svg.selectAll(".cut0")
-    .attr("opacity",1)
+    .transition()
+    .delay(lag)
+    .attr("opacity",op)
+
 
     this.svg.selectAll(".cut0")
     .transition()
@@ -225,12 +241,12 @@ class NewD3Component extends D3Component {
     .transition()
     .delay(wait*5)
     .attr("opacity",0)
-    .attr("fill","green")
 
-    // this.svg.selectAll(".cut5")
-    // .transition()
-    // .delay(10100)
-    // .attr("opacity",0)
+    this.svg.selectAll(".cutFinalFlow")
+    .transition()
+    .delay(wait*5 + lag)
+    .attr("opacity",1)
+
   }
 }
 

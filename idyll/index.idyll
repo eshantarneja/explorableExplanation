@@ -173,5 +173,40 @@ Use the Min Cut Method to calulate the Maximum Flow in the following network:  [
 
 ## Question 2. Ford Fulkerson
 
-Using the Ford Fulkerson Algorithm, select the flow through each edge
+Using the Ford Fulkerson Algorithm, calculate the flow through each edge needed to achieve maximum flow:
+
+[var name:"a" value:0 /]
+[var name:"b" value:0 /]
+[var name:"c" value:0 /]
+[var name:"d" value:0 /]
+
+
+A: [Range value:a min:0 max:10 /]
+[Display value:a /]
+
+B: [Range value:b min:0 max:8 /]
+[Display value:b /]
+
+C: [Range value:c min:0 max:15 /]
+[Display value:c /]
+
+D: [Range value:d min:0 max:9 /]
+[Display value:d /]
+
+[var name:"yes" value:"Correct!" /]
+[var name:"no" value:"Incorrect! Try Again" /]
+[var name:"submit" value:0 /]
+
+[button  className:"helpButton" onClick:`submit += 1`]Submit[/button]
+
+
+[Conditional if: `a==5`][Conditional if: `b==5`][Conditional if: `submit>0`][Display value:yes /][/Conditional][/Conditional][/Conditional]
+
+
+
+
+
+
+
+
 
