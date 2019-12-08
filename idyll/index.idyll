@@ -175,23 +175,47 @@ Use the Min Cut Method to calulate the Maximum Flow in the following network:  [
 
 Using the Ford Fulkerson Algorithm, calculate the flow through each edge needed to achieve maximum flow:
 
-[var name:"a" value:0 /]
-[var name:"b" value:0 /]
-[var name:"c" value:0 /]
-[var name:"d" value:0 /]
+[var name:"sa" value:0 /]
+[var name:"saMax" value:8 /]
+[var name:"sc" value:0 /]
+[var name:"scMax" value:12 /]
+[var name:"ab" value:0 /]
+[var name:"abMax" value:15 /]
+[var name:"ac" value:0 /]
+[var name:"acMax" value:10 /]
+[var name:"bt" value:0 /]
+[var name:"btMax" value:18 /]
+[var name:"cd" value:0 /]
+[var name:"cdMax" value:17 /]
+[var name:"db" value:0 /]
+[var name:"dbMax" value:16 /]
+[var name:"dt" value:0 /]
+[var name:"dtMax" value:15 /]
 
 
-A: [Range value:a min:0 max:10 /]
-[Display value:a /]
+S->A: [Range value:sa min:0 max:saMax /]
+[Display value:sa /]
 
-B: [Range value:b min:0 max:8 /]
-[Display value:b /]
+S->C: [Range value:sc min:0 max:scMax /]
+[Display value:sc /]
 
-C: [Range value:c min:0 max:15 /]
-[Display value:c /]
+A->B: [Range value:ab min:0 max:abMax /]
+[Display value:ab /]
 
-D: [Range value:d min:0 max:9 /]
-[Display value:d /]
+A->C: [Range value:ac min:0 max:acMax /]
+[Display value:ac /]
+
+B->T: [Range value:bt min:0 max:btMax /]
+[Display value:bt /]
+
+C->D: [Range value:cd min:0 max:cdMax/]
+[Display value:cd /]
+
+D->B: [Range value:db min:0 max:dbMax /]
+[Display value:db /]
+
+D->T: [Range value:dt min:0 max:dtMax /]
+[Display value:dt /]
 
 [var name:"yes" value:"Correct!" /]
 [var name:"no" value:"Incorrect! Try Again" /]
@@ -200,10 +224,14 @@ D: [Range value:d min:0 max:9 /]
 [button  className:"helpButton" onClick:`submit += 1`]Submit[/button]
 
 
-[Conditional if: `a==5`][Conditional if: `b==5`][Conditional if: `submit>0`][Display value:yes /][/Conditional][/Conditional][/Conditional]
+[Conditional if: `ac==5`][Conditional if: `ab==5`][Conditional if: `submit>0`][Display value:yes /][/Conditional][/Conditional][/Conditional]
+
+[Conditional if: `submit>0`][Conditional if: `ac!=5` if: `ab!=5`][Display value:no /][/Conditional][/Conditional]
 
 
-
+[Graphic className:"new-component-container"]
+    [fordFulkTest sa:`sa` sc:`sc` ab:`ab` ac:`ac` bt:`bt` cd:`cd` db:`db` dt:`dt` saMax:`saMax` scMax:`scMax` abMax:`abMax` acMax:`acMax` btMax:`btMax` cdMax:`cdMax` dbMax:`dbMax` dtMax:`dtMax` /]
+[/Graphic]
 
 
 

@@ -179,11 +179,18 @@ class NewD3Component extends D3Component {
 
 
   update(props, oldProps) {
-    this.cutAnimation(props, oldProps)
+
+    console.log(props.myVar)
+
+    if (props.myVar > 0){     
+      this.cutAnimation(props, oldProps)
+    }
+    
   }
 
   cutAnimation(props,oldProps){
 
+    console.log("here")
     var lag = 100
     var wait = 2000
     var op = 1
