@@ -103,8 +103,8 @@ class networkGraph extends D3Component {
     .attr("y", function(d){ return (nodes[d.target].y + nodes[d.source].y)/2})
     .attr("id", function(d) {return "movingCapacity"+d.id;})
     .text(function(d){return d.capacity})
-    .attr("font-size", "40px")
-    .attr("fill","red")
+    .attr("font-size", "20px")
+    .attr("fill","blue")
     .attr("class","movingCapacity")
     // .attr("opacity","0")
 
@@ -119,7 +119,37 @@ class networkGraph extends D3Component {
     .attr("y",50)
     .attr("font-size", "40px")
 
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity0"})
+    .attr("transform", "translate(-100,62) rotate(-25)")
 
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity1"})
+    .attr("transform", "translate(115,-25) rotate(25)")
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity2"})
+    .attr("transform", "translate(-10,-5) rotate(0)")
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity3"})
+    .attr("transform", "translate(10,0) rotate(0)")
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity4"})
+    .attr("transform", "translate(115,-165) rotate(25)")
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity5"})
+    .attr("transform", "translate(-19,-5) rotate(0)")
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity6"})
+    .attr("transform", "translate(10,0) rotate(0)")
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity7"})
+    .attr("transform", "translate(-100,205) rotate(-25)")
   }
   // each "step" in the idyll file has a number associated with it.
   // To update our graphic all we need to do is check the state number and update
@@ -390,4 +420,3 @@ function placeText(source, target, attr) {
   }
 
 module.exports = networkGraph;
-

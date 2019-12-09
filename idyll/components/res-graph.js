@@ -4,7 +4,7 @@ const d3 = require('d3');
 
 const size = 500;
 
-class residualGraph extends D3Component {
+class resGraph extends D3Component {
   initialize(node, props) {
     const svg = (this.svg = d3.select(node).append('svg'));
 
@@ -305,13 +305,6 @@ class residualGraph extends D3Component {
       var t2 = 2000;
       var t3 = 3000;
       var t4 = 4000;
-      var t5 = 5000;
-      var t6 = 6000;
-      var t7 = 7000;
-      var t8 = 8000;
-      var t9 = 9000;
-      var t10 = 10000;
-      var t11 = 11000;
 
       this.svg
       .selectAll("line").filter(function(d) {return this.id == "line0"})
@@ -373,153 +366,22 @@ class residualGraph extends D3Component {
       .text("2/7")
 
       this.svg
-      .selectAll("line").filter(function(d) {return this.id == "line1"})
-      .transition()
-      .delay(t4)
-      .attr("stroke", "orange")
-      .attr("stroke-width",3)
-
-      this.svg
-      .selectAll("text").filter(function(d) {return this.id == "movingCapacity1"})
-      .transition()
-      .delay(t4)
-      .text("8/8")
-
-      this.svg
-      .selectAll("text").filter(function(d) {return this.id == "movingCapacityResidual1"})
-      .transition()
-      .delay(t4)
-      .text("0/8")
-
-      this.svg
-      .selectAll("line").filter(function(d) {return this.id == "line5"})
-      .transition()
-      .delay(t5)
-      .attr("stroke", "orange")
-      .attr("stroke-width",3)
-
-      this.svg
-      .selectAll("text").filter(function(d) {return this.id == "movingCapacity5"})
-      .transition()
-      .delay(t5)
-      .text("8/10")
-
-      this.svg
-      .selectAll("text").filter(function(d) {return this.id == "movingCapacityResidual5"})
-      .transition()
-      .delay(t5)
-      .text("2/10")
-
-      this.svg
-      .selectAll("line").filter(function(d) {return this.id == "line7"})
-      .transition()
-      .delay(t6)
-      .attr("stroke", "orange")
-      .attr("stroke-width",3)
-
-      this.svg
-      .selectAll("text").filter(function(d) {return this.id == "movingCapacity7"})
-      .transition()
-      .delay(t6)
-      .text("8/10")
-
-      this.svg
-      .selectAll("text").filter(function(d) {return this.id == "movingCapacityResidual7"})
-      .transition()
-      .delay(t6)
-      .text("2/10")
-
-      this.svg
-      .selectAll("line").filter(function(d) {return this.id == "line0"})
-      .transition()
-      .delay(t7)
-
-      this.svg
-      .selectAll("text").filter(function(d) {return this.id == "movingCapacity0"})
-      .transition()
-      .delay(t7)
-      .text("7/10")
-
-      this.svg
-      .selectAll("text").filter(function(d) {return this.id == "movingCapacityResidual0"})
-      .transition()
-      .delay(t7)
-      .text("3/10")
-
-      this.svg
-      .selectAll("line").filter(function(d) {return this.id == "line3"})
-      .transition()
-      .delay(t8)
-      .attr("stroke", "orange")
-      .attr("stroke-width",3)
-
-      this.svg
-      .selectAll("text").filter(function(d) {return this.id == "movingCapacity3"})
-      .transition()
-      .delay(t8)
-      .text("2/2")
-
-      this.svg
-      .selectAll("text").filter(function(d) {return this.id == "movingCapacityResidual3"})
-      .transition()
-      .delay(t8)
-      .text("0/2")
-
-      this.svg
-      .selectAll("line").filter(function(d) {return this.id == "line5"})
-      .transition()
-      .delay(t9)
-      .attr("stroke", "orange")
-      .attr("stroke-width",3)
-
-      this.svg
-      .selectAll("text").filter(function(d) {return this.id == "movingCapacity5"})
-      .transition()
-      .delay(t9)
-      .text("10/10")
-
-      this.svg
-      .selectAll("text").filter(function(d) {return this.id == "movingCapacityResidual5"})
-      .transition()
-      .delay(t9)
-      .text("0/10")
-
-      this.svg
-      .selectAll("line").filter(function(d) {return this.id == "line7"})
-      .transition()
-      .delay(t10)
-      .attr("stroke", "orange")
-      .attr("stroke-width",3)
-
-      this.svg
-      .selectAll("text").filter(function(d) {return this.id == "movingCapacity7"})
-      .transition()
-      .delay(t10)
-      .text("10/10")
-
-      this.svg
-      .selectAll("text").filter(function(d) {return this.id == "movingCapacityResidual7"})
-      .transition()
-      .delay(t10)
-      .text("0/10")
-
-      this.svg
       .selectAll("line")
       .transition()
-      .delay(t11)
-      .attr("stroke", "grey")
+      .delay(t4)
+      .attr("stroke", "black")
       .attr("stroke-width",2)
 
       this.svg
       .selectAll(".movingCapacity")
       .transition()
-      .delay(t11)
+      .delay(t4)
       .text(function(d){return "0/"+d.capacity})
 
       this.svg
       .selectAll(".movingCapacityResidual")
       .transition()
-      .delay(t11)
+      .delay(t4)
       .text(function(d){return d.capacity+"/"+d.capacity})
       // .on("end",fillCapacities(this))
   }
@@ -614,4 +476,4 @@ function fillCapacities(t){
   }
 
 
-module.exports = residualGraph;
+module.exports = resGraph;

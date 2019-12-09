@@ -103,9 +103,41 @@ class networkInit extends D3Component {
     .attr("y", function(d){ return (nodes[d.target].y + nodes[d.source].y)/2})
     .attr("id", function(d) {return "movingCapacity"+d.id;})
     .text(function(d){return d.flow + "/" + d.capacity})
-    .attr("font-size", "40px")
-    .attr("fill","red")
+    .attr("font-size", "20px")
+    .attr("fill","blue")
     .attr("class","movingCapacity")
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity0"})
+    .attr("transform", "translate(-100,62) rotate(-25)")
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity1"})
+    .attr("transform", "translate(115,-25) rotate(25)")
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity2"})
+    .attr("transform", "translate(-10,-5) rotate(0)")
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity3"})
+    .attr("transform", "translate(10,0) rotate(0)")
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity4"})
+    .attr("transform", "translate(115,-165) rotate(25)")
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity5"})
+    .attr("transform", "translate(-19,-5) rotate(0)")
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity6"})
+    .attr("transform", "translate(10,0) rotate(0)")
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity7"})
+    .attr("transform", "translate(-100,205) rotate(-25)")
     // .attr("opacity","0")
 
 
@@ -390,4 +422,3 @@ function placeText(source, target, attr) {
   }
 
 module.exports = networkInit;
-
