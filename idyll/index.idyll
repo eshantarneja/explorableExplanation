@@ -155,15 +155,19 @@ You can learn more about these applications and how they apply to the maximum fl
 
 [var name:"myVar" value:"0" /]
 
-[var name:"textVal" value:"Answer" /]
 
-Use the Min Cut Method to calulate the Maximum Flow in the following network:  [TextInput value:textVal /]
+[var name:"textVal" value:"select" /]
 
 
-[Conditional if:`textVal=="Enter Flow"`][/Conditional]
-[Conditional if:`textVal==1`] Correct![button  className:"helpButton" onClick:`myVar += 1`]Click For Walkthrough[/button][/Conditional]
-[Conditional if:`textVal>1`] Incorrect [button  className:"helpButton" onClick:`myVar += 1`]Click For Help![/button][/Conditional]
-[Conditional if:`textVal<1`] Incorrect [button  className:"helpButton" onClick:`myVar += 1`]Click For Help![/button][/Conditional]
+
+Use the Min Cut Method to calulate the Maximum Flow in the following network:  [Select value:textVal options:`["select","15", "17", "18", "22"]`  /]
+
+
+[Conditional if:`textVal=="select"`][/Conditional]
+[Conditional if:`textVal==15`] Correct![button  className:"helpButton" onClick:`myVar += 1`]Click For Walkthrough[/button][/Conditional]
+[Conditional if:`textVal==17`] Incorrect! Click to see answer or try again. [button  className:"helpButton" onClick:`myVar += 1`]Show Answer[/button][/Conditional]
+[Conditional if:`textVal==18`] Incorrect! Click to see answer or try again. [button  className:"helpButton" onClick:`myVar += 1`]Show Answer[/button][/Conditional]
+[Conditional if:`textVal==22`] Incorrect! Click to see answer or try again. [button  className:"helpButton" onClick:`myVar += 1`]Show Answer[/button][/Conditional]
 
 
 

@@ -47,8 +47,8 @@ class NewD3Component extends D3Component {
     var cuts = [
     {x1: .25,  y1: .2, x2: .25, y2: .8, id: 0, text: 18, max: 18},
     {x1: .15,  y1: .3, x2: .55, y2: .75, id: 1, text: 22, max: 22},
-    {x1: .5,  y1: .2, x2: .5, y2: .8, id: 2, text: 15, max: 22},
-    {x1: .45,  y1: .3, x2: .85, y2: .65, id: 3, text: 23, max: 23},
+    {x1: .5,  y1: .2, x2: .5, y2: .8, id: 2, text: 15, max: 15},
+    {x1: .45,  y1: .3, x2: .85, y2: .65, id: 3, text: 23, max: 15},
     {x1: .8,  y1: .2, x2: .8, y2: .8, id: 4, text: 17, max: 23}
     ];
 
@@ -151,7 +151,7 @@ class NewD3Component extends D3Component {
     .attr("y",width*.05)
     .attr("opacity",0)
     .attr("fill","red")
-    .text(function(d){return "Flow: " + d.text});
+    .text(function(d){return "Current Cut: " + d.text});
 
     svg.selectAll()
     .data(cuts)
@@ -162,18 +162,18 @@ class NewD3Component extends D3Component {
     .attr("y",width*.1)
     .attr("opacity",0)
     .attr("fill","green")
-    .text(function(d){return "Max Flow: " + d.max});
+    .text(function(d){return "Min Cut: " + d.max});
 
     svg.selectAll()
     .data(cuts)
     .enter()
     .append("text")
     .attr("class", "cutFinalFlow")
-    .attr("x",width*.37)
+    .attr("x",width*.25)
     .attr("y",width*.1)
     .attr("opacity",0)
     .attr("fill","green")
-    .text("Max Flow = 23");
+    .text("Min Cut = Max Flow = 15");
   }
 
 
