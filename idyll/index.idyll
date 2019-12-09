@@ -117,7 +117,7 @@ The goal of this cut is to find the capacity of the edges that cross the partiti
 
 
 
-[button className:"simpleExample" onClick:`minCutState=1`] Play Animation [/button]
+[button className:"simpleExample" onClick:`minCutState+=1`] Play Animation [/button]
 
 
 [br/]
@@ -165,7 +165,7 @@ The forward edge of a residual graph has a value entitled the, "residual capacit
 
 The backwards edge of a residual graph holds that value of flow that is currently passing through the edge.  This value is updated in each step of the algorithm.
 
-The purpose of the residual graph is to keep track of the additional possible flow in each edge within the network.  Using a residual network, one is able to determine whether or not it is possible to add additional flow to the network.  This can be achieved by identifying a path from source to sink in the residual network.  Ultimately, a residual network is used to determine an optimal solution to the maximum flow algorithm.  This will be further touched on below.
+You can think of the residual graph as showing you the amount of flow that can be pushed both forwards and backwards among an edge.
 
 Here is an example of how a single flow changes the capacity and residual capacity: The red numbers are showing the residual capacity while the blue numbers show the actual capacity
 
@@ -175,7 +175,7 @@ Here is an example of how a single flow changes the capacity and residual capaci
   [resGraph className:"d3-component" state:`resGraphState` /]
 [/Graphic]
 
-[button className:"simpleExample" onClick:`resGraphState = 1`] Play Animation [/button]
+[button className:"simpleExample" onClick:`resGraphState += 1`] Play Animation [/button]
 
 [br/]
 [br/]
@@ -206,7 +206,7 @@ function: FordFulkerson(Graph G, Node S, Node T):
 ```
 In this implementation of the Ford-Fulkerson algorithm, the maximum flow will be reached when no more flow augmenting paths can be found in the graph. 
 
-Here is an example of a complete run through of the algorithm:
+Here is an example of a complete run through of the algorithm, where you can see the maximum flow of 15 is reached!:
 
 [var name:"fordFulkState" value:0 /]
 
@@ -223,6 +223,9 @@ The time complexity for the above algorithm is [Equation] O(Ef) [/Equation], whe
 Note: this complexity only holds if the capacities of the graph are integers.
 
 A variation of the Ford–Fulkerson algorithm with guaranteed termination and a runtime independent of the maximum flow value is the Edmonds–Karp algorithm, which runs in   [Equation] O(VE^{2}) [/Equation] time.  You may read more about this implementation [link text:"here" url:"https://www.geeksforgeeks.org/ford-fulkerson-algorithm-for-maximum-flow-problem/" /].  However, the general idea is to use a breadth-first search (BFS) coupled with the Ford Fulkerson implementation.  BFS is key to this implementation, as it always picks a path with minimum number of edges.
+
+[br/]
+[br/]
 
 # Test your Knowledge
 

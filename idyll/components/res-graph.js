@@ -195,15 +195,15 @@ class resGraph extends D3Component {
     .attr("transform", "translate(-100,205) rotate(-25)")
 
 
-    var header = svg.selectAll()
-    .data(links)
-    .enter()
-    .append("text")
-    .attr("class","header")
-    .text("NETWORK FLOW")
-    .attr("x", 50)
-    .attr("y",50)
-    .attr("font-size", "40px")
+    // var header = svg.selectAll()
+    // .data(links)
+    // .enter()
+    // .append("text")
+    // .attr("class","header")
+    // .text("NETWORK FLOW")
+    // .attr("x", 50)
+    // .attr("y",50)
+    // .attr("font-size", "40px")
   }
   // each "step" in the idyll file has a number associated with it.
   // To update our graphic all we need to do is check the state number and update
@@ -211,20 +211,22 @@ class resGraph extends D3Component {
   update(props, oldProps) {
     //init state
 
-    if (props.state==0){
-      console.log("state=0")
-      this.step0(props,oldProps)
-    }
-    else if (props.state==1){
       this.residual(props,oldProps)
-      console.log("state=1")
-    }
-    else{
-      this.svg
-      .selectAll('line')
-      .attr("stroke","black")
-      console.log("state=else")
-    }
+
+    // if (props.state==0){
+    //   console.log("state=0")
+    //   this.step0(props,oldProps)
+    // }
+    // else if (props.state==1){
+    //   this.residual(props,oldProps)
+    //   console.log("state=1")
+    // }
+    // else{
+    //   this.svg
+    //   .selectAll('line')
+    //   .attr("stroke","black")
+    //   console.log("state=else")
+    // }
   }
 
   step0(props, oldProps) {
@@ -305,7 +307,7 @@ class resGraph extends D3Component {
       var t1 = 1000;
       var t2 = 2000;
       var t3 = 3000;
-      var t4 = 8000;
+      var t4 = 5000;
 
       this.svg
       .selectAll("line").filter(function(d) {return this.id == "line0"})
