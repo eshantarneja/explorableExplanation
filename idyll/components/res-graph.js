@@ -210,6 +210,7 @@ class resGraph extends D3Component {
 
   update(props, oldProps) {
     //init state
+
     if (props.state==0){
       console.log("state=0")
       this.step0(props,oldProps)

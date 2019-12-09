@@ -74,9 +74,9 @@ For those who are more mathematically inclined, you may think of a flow network 
 
 ## Maximum Flow Problem
 
-The maxiumum flow problem simply asks, given one of these flow networks with vertices, edges, and capacities. What is the maximum amount of flow that can be pushed through it? There are two main constraints that your "maximum flow" needs to follow to be considered a true maximum flow.
+The maxiumum flow problem simply asks, given one of these flow networks with vertices, edges, and capacities - what is the maximum amount of flow that can be pushed through it? 
 
-Mathmatically speaking: An st-flow, [Equation] f [/Equation], is a function that satisfies the following contraints:
+There are two main constraints that your "maximum flow" needs to follow to be considered a true maximum flow. Mathmatically speaking: An st-flow, [Equation] f [/Equation], is a function that satisfies the following contraints:
 
 * (Capacity) - For each [Equation] e \in E:  0 \leq f_e \leq c_e [/Equation]
 
@@ -101,7 +101,7 @@ In the graph below you can see a few examples of what is and is not considered m
 
 A quick way to find the maximum flow of a network is to use the "max-flow, min-cut" theorem. The theorem provides a method of finding the the tightest bottleneck in the network by examining all the possible bottlenecks one by one.
 
-To find these bottlnecks takes all of the possible s-t cuts of the network, and compares their capacity.  So what is an s-t cut exactly?  An s-t cut is a partitioning of the vertices into two disjoint subsets; one subset will contain the source (S) and the other will contain the sink (T). One interesting way of envisioning this s-t cut is using set theory (A and B are the two disjoint subsets).
+To find these bottlnecks, the method takes all of the possible s-t cuts of the network, and compares their capacity.  So what is an s-t cut exactly?  An s-t cut is a partitioning of the vertices into two disjoint subsets; one subset will contain the source (S) and the other will contain the sink (T). One interesting way of envisioning this s-t cut is using set theory (A and B are the two disjoint subsets).
 
 * [Equation] A \cup B \in V [/Equation] (the union of A and B is the original network)
 
@@ -188,11 +188,9 @@ Here is an example of how a single flow changes the capacity and residual capaci
 
 ## Ford-Fulkerson Algorithm
 
-It turns out that a simple, greedy approach does not work.  Evidently, there needs to be some way of backtracking in the network (i.e. being able to undo some flow on some edges, if we overcommitted and used "too much" flow there).  This is where residual networks come into play.
+The Ford-Fulkerson Algorithm uses the concept of residual graphs to move forwards and backwards towards a path of maximum flow! The algorithm was developed in 1956 by L. R. Ford, Jr. and D. R. Fulkerson and their method is widely used today!
 
-Luckily, there exists a better algorithm to solve this problem called the Ford-Fulkerson Algorithm. It was developed in 1956 by L. R. Ford, Jr. and D. R. Fulkerson and their method is widely used today!
-
-To find the maximum flow (and the minimum cut as a byproduct), the Ford-Fulkerson algorithm repeatedly searches for and finds augmenting paths using the residual network graph. This process repeats as flow is augmented through the network until no more augmenting paths are found in the network.
+To find the maximum flow, the Ford-Fulkerson algorithm repeatedly searches for and finds augmenting paths using the residual network graph. This process repeats as flow is augmented through the network until no more augmenting paths are found in the network.
 
 An augmenting path is a path of edges in the residual graph with unused capacity greater than zero, [Equation] f_e < c_e [/Equation], from source (S) to sink (T).
 
@@ -206,9 +204,9 @@ function: FordFulkerson(Graph G, Node S, Node T):
         Update residual network graph
     return
 ```
-In this implementation of the Ford-Fulkerson algorithm, the maximum flow will be reached when no more flow augmenting paths can be found in the graph. However, there is no certainty that this situation will ever be reached.  As such, we can only guarantee that the solution is correct if the algorithm terminates. In the case that the algorithm runs forever, it is likely that the flow will not converge towards the maximum flow.  Fortunately, this situation only occurs with irrational flow values.
+In this implementation of the Ford-Fulkerson algorithm, the maximum flow will be reached when no more flow augmenting paths can be found in the graph. 
 
-Here is an example of a complete Run through of the algorithm:
+Here is an example of a complete run through of the algorithm:
 
 [var name:"fordFulkState" value:0 /]
 
