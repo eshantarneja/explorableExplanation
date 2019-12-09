@@ -42,15 +42,6 @@ class greedyGraph extends D3Component {
               { source: 3, target: 4, capacity: 10, id: 5},
               { source: 4, target: 2, capacity: 8, id: 6},
               { source: 4, target: 5, capacity: 10, id: 7},
-
-              { source: 1, target: 0, capacity: 10, id: 0},
-              { source: 3, target: 0, capacity: 8, id: 1},
-              { source: 2, target: 1, capacity: 5, id: 2},
-              { source: 3, target: 1, capacity: 2, id: 3},
-              { source: 5, target: 2, capacity: 7, id: 4},
-              { source: 4, target: 3, capacity: 10, id: 5},
-              { source: 2, target: 4, capacity: 8, id: 6},
-              { source: 5, target: 4, capacity: 10, id: 7},
     ];
 
     let lineId = 0;
@@ -117,78 +108,78 @@ class greedyGraph extends D3Component {
     .attr("class","movingCapacity")
 
 
-    svg.selectAll()
-    .data(links)
-    .enter()
-    .append("text")
-    .attr("x", function(d){ return (nodes[d.target].x + nodes[d.source].x)/2})
-    .attr("y", function(d){ return (nodes[d.target].y + nodes[d.source].y)/2-10})
-    .attr("id", function(d) {return "movingCapacityResidual"+d.id;})
-    .text(function(d){return d.capacity+"/"+d.capacity})
-    .attr("font-size", "20px")
-    .attr("fill","red")
-    .attr("class","movingCapacityResidual")
+    // svg.selectAll()
+    // .data(links)
+    // .enter()
+    // .append("text")
+    // .attr("x", function(d){ return (nodes[d.target].x + nodes[d.source].x)/2})
+    // .attr("y", function(d){ return (nodes[d.target].y + nodes[d.source].y)/2-10})
+    // .attr("id", function(d) {return "movingCapacityResidual"+d.id;})
+    // .text(function(d){return d.capacity+"/"+d.capacity})
+    // .attr("font-size", "20px")
+    // .attr("fill","red")
+    // .attr("class","movingCapacityResidual")
     // .attr("opacity","0")
 
-    this.svg
-    .selectAll("text").filter(function(d) {return this.id == "movingCapacityResidual0"})
-    .attr("transform", "translate(-100, 72) rotate(-25)")
+    // this.svg
+    // .selectAll("text").filter(function(d) {return this.id == "movingCapacityResidual0"})
+    // .attr("transform", "translate(-100, 72) rotate(-25)")
 
     this.svg
     .selectAll("text").filter(function(d) {return this.id == "movingCapacity0"})
     .attr("transform", "translate(-100,62) rotate(-25)")
 
-    this.svg
-    .selectAll("text").filter(function(d) {return this.id == "movingCapacityResidual1"})
-    .attr("transform", "translate(115, -15) rotate(25)")
+    // this.svg
+    // .selectAll("text").filter(function(d) {return this.id == "movingCapacityResidual1"})
+    // .attr("transform", "translate(115, -15) rotate(25)")
 
     this.svg
     .selectAll("text").filter(function(d) {return this.id == "movingCapacity1"})
     .attr("transform", "translate(115,-25) rotate(25)")
 
-    this.svg
-    .selectAll("text").filter(function(d) {return this.id == "movingCapacityResidual2"})
-    .attr("transform", "translate(-10,5) rotate(0)")
+    // this.svg
+    // .selectAll("text").filter(function(d) {return this.id == "movingCapacityResidual2"})
+    // .attr("transform", "translate(-10,5) rotate(0)")
 
     this.svg
     .selectAll("text").filter(function(d) {return this.id == "movingCapacity2"})
     .attr("transform", "translate(-10,-5) rotate(0)")
 
-    this.svg
-    .selectAll("text").filter(function(d) {return this.id == "movingCapacityResidual3"})
-    .attr("transform", "translate(10,0) rotate(0)")
+    // this.svg
+    // .selectAll("text").filter(function(d) {return this.id == "movingCapacityResidual3"})
+    // .attr("transform", "translate(10,0) rotate(0)")
 
     this.svg
     .selectAll("text").filter(function(d) {return this.id == "movingCapacity3"})
     .attr("transform", "translate(10,0) rotate(0)")
 
-    this.svg
-    .selectAll("text").filter(function(d) {return this.id == "movingCapacityResidual4"})
-    .attr("transform", "translate(115, -165) rotate(25)")
+    // this.svg
+    // .selectAll("text").filter(function(d) {return this.id == "movingCapacityResidual4"})
+    // .attr("transform", "translate(115, -165) rotate(25)")
 
     this.svg
     .selectAll("text").filter(function(d) {return this.id == "movingCapacity4"})
     .attr("transform", "translate(115,-165) rotate(25)")
 
-    this.svg
-    .selectAll("text").filter(function(d) {return this.id == "movingCapacityResidual5"})
-    .attr("transform", "translate(-19,5) rotate(0)")
+    // this.svg
+    // .selectAll("text").filter(function(d) {return this.id == "movingCapacityResidual5"})
+    // .attr("transform", "translate(-19,5) rotate(0)")
 
     this.svg
     .selectAll("text").filter(function(d) {return this.id == "movingCapacity5"})
     .attr("transform", "translate(-19,-5) rotate(0)")
 
-    this.svg
-    .selectAll("text").filter(function(d) {return this.id == "movingCapacityResidual6"})
-    .attr("transform", "translate(10,0) rotate(0)")
+    // this.svg
+    // .selectAll("text").filter(function(d) {return this.id == "movingCapacityResidual6"})
+    // .attr("transform", "translate(10,0) rotate(0)")
 
     this.svg
     .selectAll("text").filter(function(d) {return this.id == "movingCapacity6"})
     .attr("transform", "translate(10,0) rotate(0)")
 
-    this.svg
-    .selectAll("text").filter(function(d) {return this.id == "movingCapacityResidual7"})
-    .attr("transform", "translate(-100, 215) rotate(-25)")
+    // this.svg
+    // .selectAll("text").filter(function(d) {return this.id == "movingCapacityResidual7"})
+    // .attr("transform", "translate(-100, 215) rotate(-25)")
 
     this.svg
     .selectAll("text").filter(function(d) {return this.id == "movingCapacity7"})
@@ -308,10 +299,7 @@ class greedyGraph extends D3Component {
       var t5 = 5000;
       var t6 = 6000;
       var t7 = 7000;
-      var t8 = 8000;
-      var t9 = 9000;
-      var t10 = 10000;
-      var t11 = 11000;
+      var t8 = 1200;
 
       this.svg
       .selectAll("line").filter(function(d) {return this.id == "line0"})
@@ -327,11 +315,11 @@ class greedyGraph extends D3Component {
       .delay(t1)
       .text("5/10")
 
-      this.svg
-      .selectAll("text").filter(function(d) {return this.id == "movingCapacityResidual0"})
-      .transition()
-      .delay(t1)
-      .text("5/10")
+      // this.svg
+      // .selectAll("text").filter(function(d) {return this.id == "movingCapacityResidual0"})
+      // .transition()
+      // .delay(t1)
+      // .text("5/10")
 
       this.svg
       .selectAll("line").filter(function(d) {return this.id == "line2"})
@@ -347,11 +335,11 @@ class greedyGraph extends D3Component {
       .delay(t2)
       .text("5/5")
 
-      this.svg
-      .selectAll("text").filter(function(d) {return this.id == "movingCapacityResidual2"})
-      .transition()
-      .delay(t2)
-      .text("0/5")
+      // this.svg
+      // .selectAll("text").filter(function(d) {return this.id == "movingCapacityResidual2"})
+      // .transition()
+      // .delay(t2)
+      // .text("0/5")
 
       this.svg
       .selectAll("line").filter(function(d) {return this.id == "line6"})
@@ -367,11 +355,11 @@ class greedyGraph extends D3Component {
       .delay(t3)
       .text("5/8")
 
-      this.svg
-      .selectAll("text").filter(function(d) {return this.id == "movingCapacityResidual6"})
-      .transition()
-      .delay(t3)
-      .text("3/8")
+      // this.svg
+      // .selectAll("text").filter(function(d) {return this.id == "movingCapacityResidual6"})
+      // .transition()
+      // .delay(t3)
+      // .text("3/8")
 
       this.svg
       .selectAll("line").filter(function(d) {return this.id == "line7"})
@@ -387,11 +375,11 @@ class greedyGraph extends D3Component {
       .delay(t4)
       .text("5/10")
 
-      this.svg
-      .selectAll("text").filter(function(d) {return this.id == "movingCapacityResidual7"})
-      .transition()
-      .delay(t4)
-      .text("5/10")
+      // this.svg
+      // .selectAll("text").filter(function(d) {return this.id == "movingCapacityResidual7"})
+      // .transition()
+      // .delay(t4)
+      // .text("5/10")
 
       this.svg
       .selectAll("line").filter(function(d) {return this.id == "line1"})
@@ -407,11 +395,11 @@ class greedyGraph extends D3Component {
       .delay(t5)
       .text("5/8")
 
-      this.svg
-      .selectAll("text").filter(function(d) {return this.id == "movingCapacityResidual1"})
-      .transition()
-      .delay(t5)
-      .text("3/8")
+      // this.svg
+      // .selectAll("text").filter(function(d) {return this.id == "movingCapacityResidual1"})
+      // .transition()
+      // .delay(t5)
+      // .text("3/8")
 
       this.svg
       .selectAll("line").filter(function(d) {return this.id == "line5"})
@@ -427,11 +415,11 @@ class greedyGraph extends D3Component {
       .delay(t6)
       .text("5/10")
 
-      this.svg
-      .selectAll("text").filter(function(d) {return this.id == "movingCapacityResidual5"})
-      .transition()
-      .delay(t6)
-      .text("5/10")
+      // this.svg
+      // .selectAll("text").filter(function(d) {return this.id == "movingCapacityResidual5"})
+      // .transition()
+      // .delay(t6)
+      // .text("5/10")
 
       this.svg
       .selectAll("text").filter(function(d) {return this.id == "movingCapacity7"})
@@ -439,11 +427,11 @@ class greedyGraph extends D3Component {
       .delay(t7)
       .text("10/10")
 
-      this.svg
-      .selectAll("text").filter(function(d) {return this.id == "movingCapacityResidual7"})
-      .transition()
-      .delay(t7)
-      .text("0/10")
+      // this.svg
+      // .selectAll("text").filter(function(d) {return this.id == "movingCapacityResidual7"})
+      // .transition()
+      // .delay(t7)
+      // .text("0/10")
 
       this.svg
       .selectAll("line")
@@ -458,11 +446,11 @@ class greedyGraph extends D3Component {
       .delay(t8)
       .text(function(d){return "0/"+d.capacity})
 
-      this.svg
-      .selectAll(".movingCapacityResidual")
-      .transition()
-      .delay(t8)
-      .text(function(d){return d.capacity+"/"+d.capacity})
+      // this.svg
+      // .selectAll(".movingCapacityResidual")
+      // .transition()
+      // .delay(t8)
+      // .text(function(d){return d.capacity+"/"+d.capacity})
       // .on("end",fillCapacities(this))
   }
 }

@@ -304,7 +304,7 @@ class resGraph extends D3Component {
       var t1 = 1000;
       var t2 = 2000;
       var t3 = 3000;
-      var t4 = 4000;
+      var t4 = 8000;
 
       this.svg
       .selectAll("line").filter(function(d) {return this.id == "line0"})

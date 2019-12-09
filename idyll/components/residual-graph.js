@@ -311,7 +311,7 @@ class residualGraph extends D3Component {
       var t8 = 8000;
       var t9 = 9000;
       var t10 = 10000;
-      var t11 = 11000;
+      var t11 = 15000;
 
       this.svg
       .selectAll("line").filter(function(d) {return this.id == "line0"})
