@@ -23,7 +23,7 @@ Generally speaking, the maximum flow problem can be stated as:
 
 Given a set of nodes and edges comprising a network, an infinite input source, and a fixed maximum capacity for every edge, what is the maximum amount of flow that can pass through the network?
 
-The maximum flow of a network is defined as the maximum amount of flow that the network would allow to pass from source to sink. There are numerous existing algorithms that solve this particular problem; however, the one we wish to cover is the Ford-Fulkerson algorithm.
+The maximum flow of a network is defined as the maximum amount of flow that the network would allow to pass from start (source) to finish (sink). There are numerous existing algorithms that solve this particular problem; however, the one we wish to cover is the Ford-Fulkerson algorithm.
 
 #### Real World Applications
 
@@ -42,7 +42,11 @@ You can learn more about these applications and how they apply to the maximum fl
 
 As mentioned previously, the key parts of network graphs are nodes, edges, and capacities.
 
-Although network graphs may have undirected edges, the graphs specific to flow networks only contain directed edges.  This means that flow can only move one direction through an edge. Additionally, each edge within the network has a fixed capacity. The amount of flow through an edge cannot exceed the capacity of the edge.
+There are two key nodes to be aware of: the source(S) and the sink(T). The source is where the flow starts from in the network, and the sink is where in "drains out of". The other nodes in between are stops along the way.
+
+Although network graphs may have undirected edges, the graphs specific to flow networks only contain directed edges.  This means that flow can only move one direction through an edge. 
+
+Additionally, each edge within the network has a fixed capacity. The amount of flow through an edge cannot exceed the capacity of the edge.
 
 Click through the buttons below to familiarize yourself with different components of network flow!
 
@@ -61,29 +65,18 @@ Click through the buttons below to familiarize yourself with different component
 [button className:"showNet" onClick:`netState = 4`] Network Flow [/button]
 
 [br/]
-[br/]
 
-## Network Flow
+For those who are more mathematically inclined, you may think of a flow network as a tuple, [Equation] G = (V, E, s, t, c) [/Equation].  Essentially, it is comprised of a Digraph[Equation] (V,E) [/Equation] (a set of vertices and edges) with source, [Equation] s \in V [/Equation], and sink, [Equation] t \in V [/Equation]. Additionally, for each edge, [Equation] e \in E [/Equation], there exists a non-negative capacity [Equation] c_e [/Equation]. A flow through an edge is defined as [Equation] f_e [/Equation].
 
-In graph theory, a flow network is defined as a directed graph involving a source(S), a sink(T), and additional  that are connected with edges. Each edge has an individual capacity which is the maximum limit of flow that edge could allow. The following graphic is an example of a flow network with zero flow passing through it (flow = 0).
 
-[var name:"netFlowState" value:0 /]
-
-[Graphic className:"d3-component-container"]
-  [networkInit className:"d3-component" state:`netFlowState` /]
-[/Graphic]
-
-This is what an initialized flow network looks like - each edge has an initial flow of 0 and a non-negative capacity.
-
-For those who are more mathematically inclined, you may think of a flow network as a tuple, [Equation] G = (V, E, s, t, c) [/Equation].  Essentially, it is comprised of a Digraph [Equation] (V,E) [/Equation] with source, [Equation] s \in V [/Equation], and sink, [Equation] t \in V [/Equation]. Additionally, for each edge, [Equation] e \in E [/Equation], there exists a non-negative capacity [Equation] c_e [/Equation]. A flow through an edge is defined as [Equation] f_e [/Equation].
-
-Note: In the all of the graphics in article, we will use the notation [Equation] f_e / c_e [/Equation] (i.e. 4/10) to denote the current value of flow and the capacity of each edge.
 
 [br/]
 
 ## Maximum Flow Problem
 
-Define: An st-flow, [Equation] f [/Equation], is a function that satisfies the following contraints:
+The maxiumum flow problem simply asks, given one of these flow networks with vertices, edges, and capacities. What is the maximum amount of flow that can be pushed through it? There are two main constraints that your "maximum flow" needs to follow to be considered a true maximum flow.
+
+Mathmatically speaking: An st-flow, [Equation] f [/Equation], is a function that satisfies the following contraints:
 
 * (Capacity) - For each [Equation] e \in E:  0 \leq f_e \leq c_e [/Equation]
 
@@ -99,28 +92,68 @@ The value of flow, [Equation] f [/Equation], is:
 
 * [Equation] val(f) [/Equation] = [Equation]  \Sigma f_e [/Equation]  (e out of v)  -  [Equation] \Sigma f_e  [/Equation] (e in to v)
 
-In the case of the graph on the right, the max flow is 6! 5 units flow through the top pipes and 1 unit flows through the bottom.
+In the graph below you can see a few examples of what is and is not considered maximum flow. Alex Graph here.
 
 [br/]
 
-## A Simple Example
 
-If you are having trouble visualizing the problem as a network with nodes and edges, think of the network as a series of pipes with various capacities.  Your overarching goal is to allow as much water to flow through the pipes as possible.  However, you cannot push more water through a pipe than it allows because the pipe would burst.
+## Max-flow, Min-cut Theorem
 
-In the below animation, the "water" is pushed through the network in a specific path.  The blue lines indicate flow being pushed through the graph. The source outputs 13 units of flow, and 13 units of flow enters the sink and exits the network. Additonally, none of the capacities are exceeded; thus, the problem's contraints are upheld.
+A quick way to find the maximum flow of a network is to use the "max-flow, min-cut" theorem. The theorem provides a method of finding the the tightest bottleneck in the network by examining all the possible bottlenecks one by one.
 
-[var name:"exampleState" value:0 /]
+To find these bottlnecks takes all of the possible s-t cuts of the network, and compares their capacity.  So what is an s-t cut exactly?  An s-t cut is a partitioning of the vertices into two disjoint subsets; one subset will contain the source (S) and the other will contain the sink (T). One interesting way of envisioning this s-t cut is using set theory (A and B are the two disjoint subsets).
+
+* [Equation] A \cup B \in V [/Equation] (the union of A and B is the original network)
+
+* [Equation] A \cap B = \varnothing [/Equation] (the intersection of A and B is an empty set)
+
+The goal of this cut is to find the capacity of the edges that cross the partition made by the cut.  Again, the smallest capacity cut will dictate the maximum capacity flow that is feasible within the flow network. Explore the min cut method in the animation below!
+
+[var name:"minCutState" value:0 /]
 
 [Graphic className:"d3-component-container"]
-  [simpleExample className:"d3-component" state:`exampleState` /]
+  [minCut className:"d3-component" state:`minCutState`/]
 [/Graphic]
 
-[button className:"simpleExample" onClick:`exampleState = 1`] Play Simple Example [/button]
+
+
+[button className:"simpleExample" onClick:`minCutState=1`] Play Animation [/button]
+
 
 [br/]
-[br/]
+
+## Finding the Maximum Flow Path With a Greedy Approach
+
+Once you've found the maximum flow, the next step will be to identify the path of flow needed to achieve this final value.
+
+A simple way to first try and solve this problem is with a "greedy" approach.  Let us define what that would look like below:
+
+1. Start with [Equation] f_e = 0 [/Equation] for each edge [Equation] e \in E [/Equation].
+2. Find path P from source to sink, S ↝ T, where each edge has [Equation] f_e < c_e [/Equation].
+3. Augment flow along path P.
+4. Repeat until you get stuck.
+
+Lets see how this process would work below!
+
+[var name:"greedyGraphState" value:0 /]
+
+[Graphic className:"d3-component-container"]
+  [greedyGraph className:"d3-component" state:`greedyGraphState` /]
+[/Graphic]
+
+[button className:"simpleExample" onClick:`greedyGraphState = 1`] Play Animation [/button]
+
+
+Given the path that greedy returns, only 10 units of flow make it to the end, which is far below our goal of 15!
+
+While greedy is a simple method that will allow us to push flow through a network, in many cases like this a greedy solve is sub-optimal.  
+
+Accordingly, there exists a better path that is able to push additional flow optimally through the network. To find this path, we need to find an approach that allows us to "back track", and remove flow in our current path so we can push it somewhere better.
+
 
 ## Residual Network Flow
+
+To backtrack in the way we want, we need a map of not only where we can push flow forwards, but also where we can push flow backwards. This map will be the "residual network"
 
 For every flow network, G, that pushes flow from source to sink, there exists a residual network, R, that goes from sink to source. This residual network shares the same set of vertices as the original network, G.  Additionally, for each edge [Equation] e = (u,v) \in G [/Equation], there exists the following in the residual network, R:
 
@@ -147,54 +180,11 @@ Here is an example of how a single flow changes the capacity and residual capaci
 [br/]
 [br/]
 
-## Solving With A Greedy Approach
 
-A simple way to solve the maximum-flow problem is with a greedy approach.  Let us define what that would look like below:
-
-1. Start with [Equation] f_e = 0 [/Equation] for each edge [Equation] e \in E [/Equation].
-2. Find path P from source to sink, S ↝ T, where each edge has [Equation] f_e < c_e [/Equation].
-3. Augment flow along path P.
-4. Repeat until you get stuck.
-
-
-While this a simple method that will allow us to push flow through a network, in many cases a greedy solve is sub-optimal.  Accordingly, there exists a better path that is able to push additional flow optimally through the network.
-
-With this in mind, we know that a greedy max-flow algorithm has two potential outcomes:
-
-1. The optimal flow is achieved.
-2. No more flow can be pushed greedily through the network, and the returned path is sub-optimal.
-
-As the networks that you evaluate become increasingly complex, the likelihood that a greedy algorithm will return an optimal flow is minute.
-
-Here is an example in which a greedy approach leads to a non-optimal solution:
-
-Only 10 units of flow make it to the end.
-
-[var name:"greedyGraphState" value:0 /]
-
-[Graphic className:"d3-component-container"]
-  [greedyGraph className:"d3-component" state:`greedyGraphState` /]
-[/Graphic]
-
-[button className:"simpleExample" onClick:`greedyGraphState = 1`] Play Animation [/button]
-
-Does there exist a better approach that would allow us to account for choosing a sub-optimal path using a greedy algorithm?
 
 [br/]
 
-## Max-flow, Min-cut Theorem
 
-We know that the outgoing edges from the sink give us an upper bound on the amount of flow that can be pushed through the network, but is it in fact the tighest upper bound that we can find within the entire network?  The answer is no, the tightest upper bound that can be found within a flow network is know as the minimum cut of the network. As such, the minimum cut of a network dictates the maximum amount of flow that can be pushed through a network.
-
-Essentially, what the max-flow, min-cut theorem aims to do is to take an s-t cut of the network.  So what is an s-t cut exactly?  An s-t cut is a partitioning of the vertices into two disjoint subsets; one subset will contain the source (S) and the other will contain the sink (T). One interesting way of envisioning this s-t cut is using set theory (A and B are the two disjoint subsets).
-
-* [Equation] A \cup B \in V [/Equation] (the union of A and B is the original network)
-
-* [Equation] A \cap B = \varnothing [/Equation] (the intersection of A and B is an empty set)
-
-The goal of this cut is to find the capacity of the edges that cross the partition made by the cut.  Again, the smallest capacity cut will dictate the maximum capacity flow that is feasible within the flow network.
-
-[br/]
 
 ## Ford-Fulkerson Algorithm
 
@@ -247,14 +237,14 @@ A variation of the Ford–Fulkerson algorithm with guaranteed termination and a 
 
 
 
-Use the Min Cut Method to calulate the Maximum Flow in the following network:  [Select value:textVal options:`["select","15", "17", "18", "22"]`  /]
+Use the Min Cut Method to calulate the Maximum Flow in the following network:  [Select value:textVal options:`["select","17", "18", "20", "23"]`  /]
 
 
 [Conditional if:`textVal=="select"`][/Conditional]
-[Conditional if:`textVal==15`] Correct![button  className:"helpButton" onClick:`myVar += 1`]Click For Walkthrough[/button][/Conditional]
-[Conditional if:`textVal==17`] Incorrect! Click to see answer or try again. [button  className:"helpButton" onClick:`myVar += 1`]Show Answer[/button][/Conditional]
+[Conditional if:`textVal==17`] Correct![button  className:"helpButton" onClick:`myVar += 1`]Click For Walkthrough[/button][/Conditional]
+[Conditional if:`textVal==20`] Incorrect! Click to see answer or try again. [button  className:"helpButton" onClick:`myVar += 1`]Show Answer[/button][/Conditional]
+[Conditional if:`textVal==23`] Incorrect! Click to see answer or try again. [button  className:"helpButton" onClick:`myVar += 1`]Show Answer[/button][/Conditional]
 [Conditional if:`textVal==18`] Incorrect! Click to see answer or try again. [button  className:"helpButton" onClick:`myVar += 1`]Show Answer[/button][/Conditional]
-[Conditional if:`textVal==22`] Incorrect! Click to see answer or try again. [button  className:"helpButton" onClick:`myVar += 1`]Show Answer[/button][/Conditional]
 
 
 
