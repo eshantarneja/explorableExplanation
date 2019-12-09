@@ -109,15 +109,15 @@ class networkGraph extends D3Component {
     // .attr("opacity","0")
 
 
-    var header = svg.selectAll()
-    .data(links)
-    .enter()
-    .append("text")
-    .attr("class","header")
-    .text("NETWORK FLOW")
-    .attr("x", 50)
-    .attr("y",50)
-    .attr("font-size", "40px")
+    // var header = svg.selectAll()
+    // .data(links)
+    // .enter()
+    // .append("text")
+    // .attr("class","header")
+    // .text("NETWORK FLOW")
+    // .attr("x", 50)
+    // .attr("y",50)
+    // .attr("font-size", "40px")
 
     this.svg
     .selectAll("text").filter(function(d) {return this.id == "movingCapacity0"})

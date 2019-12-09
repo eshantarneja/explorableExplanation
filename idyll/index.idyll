@@ -214,7 +214,7 @@ Here is an example of a complete run through of the algorithm, where you can see
   [residualGraph className:"d3-component" state:`fordFulkState` /]
 [/Graphic]
 
-[button className:"simpleExample" onClick:`fordFulkState = 1`] Play Animation [/button]
+[button className:"simpleExample" onClick:`fordFulkState +=1`] Play Animation [/button]
 
 ### Time Complexity
 

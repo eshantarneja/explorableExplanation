@@ -195,35 +195,37 @@ class residualGraph extends D3Component {
     .attr("transform", "translate(-100,205) rotate(-25)")
 
 
-    var header = svg.selectAll()
-    .data(links)
-    .enter()
-    .append("text")
-    .attr("class","header")
-    .text("NETWORK FLOW")
-    .attr("x", 50)
-    .attr("y",50)
-    .attr("font-size", "40px")
+    // var header = svg.selectAll()
+    // .data(links)
+    // .enter()
+    // .append("text")
+    // .attr("class","header")
+    // .text("NETWORK FLOW")
+    // .attr("x", 50)
+    // .attr("y",50)
+    // .attr("font-size", "40px")
   }
   // each "step" in the idyll file has a number associated with it.
   // To update our graphic all we need to do is check the state number and update
 
   update(props, oldProps) {
     //init state
-    if (props.state==0){
-      console.log("state=0")
-      this.step0(props,oldProps)
-    }
-    else if (props.state==1){
-      this.residual(props,oldProps)
-      console.log("state=1")
-    }
-    else{
-      this.svg
-      .selectAll('line')
-      .attr("stroke","black")
-      console.log("state=else")
-    }
+    this.residual(props,oldProps)
+    
+    // if (props.state==0){
+    //   console.log("state=0")
+    //   this.step0(props,oldProps)
+    // }
+    // else if (props.state==1){
+      
+    //   console.log("state=1")
+    // }
+    // else{
+    //   this.svg
+    //   .selectAll('line')
+    //   .attr("stroke","black")
+    //   console.log("state=else")
+    // }
   }
 
   step0(props, oldProps) {
@@ -284,9 +286,9 @@ class residualGraph extends D3Component {
     .selectAll("circle")
     .attr("opacity",1)
 
-    this.svg
-    .selectAll(".header")
-    .text("NETWORK FLOW")
+    // this.svg
+    // .selectAll(".header")
+    // .text("NETWORK FLOW")
 
     this.svg
     .selectAll(".nodeVals")

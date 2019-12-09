@@ -122,7 +122,7 @@ class fordFulkTest extends D3Component {
   }
   update(props, oldProps) {
 
-  	console.log(props)
+  	console.log("hello")
 
   	if(props.show==1){
   		this.svg.selectAll('[class^="movingCapacity"]')
