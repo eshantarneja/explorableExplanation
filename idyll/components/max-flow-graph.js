@@ -284,6 +284,43 @@ update(props, oldProps) {
     var t1 = 1000;
     var t2 = 2000;
 
+    
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity1"})
+    .text("0/8")
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity0"})
+    .text("0/10")
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity1"})
+    .text("0/8")
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity2"})
+    .text("0/5")
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity3"})
+    .text("0/2")
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity4"})
+    .text("0/7")
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity5"})
+    .text("0/10")
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity6"})
+    .text("0/8")
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity7"})
+    .text("0/10")
+
     this.svg
     .selectAll("line")
     .transition()
@@ -363,6 +400,43 @@ update(props, oldProps) {
     this.svg
     .selectAll("text").filter(function(d) {return this.id == "movingCapacity1"})
     .text("0/8")
+
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity1"})
+    .text("0/8")
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity0"})
+    .text("0/10")
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity1"})
+    .text("0/8")
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity2"})
+    .text("0/5")
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity3"})
+    .text("0/2")
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity4"})
+    .text("0/7")
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity5"})
+    .text("0/10")
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity6"})
+    .text("0/8")
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity7"})
+    .text("0/10")
 
     this.svg
     .selectAll("line")
@@ -557,6 +631,31 @@ update(props, oldProps) {
     var t9 = 9000;
     var t10 = 10000;
     var t11 = 15000;
+
+    this.svg
+    .selectAll(".header")
+    .text("NETWORK FLOW")
+    .style('fill', 'black')
+
+    this.svg
+    .selectAll("line").filter(function(d) {return this.id == "line0"})
+    .attr("stroke", "gray")
+    .attr("stroke-width",3)
+    .attr("opacity", 1)
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity0"})
+    .text("0/10")
+
+    this.svg
+    .selectAll("line").filter(function(d) {return this.id == "line1"})
+    .attr("stroke", "gray")
+    .attr("stroke-width",3)
+    .attr("opacity", 1)
+
+    this.svg
+    .selectAll("text").filter(function(d) {return this.id == "movingCapacity1"})
+    .text("0/8")
 
     this.svg
     .selectAll("text").filter(function(d) {return this.id == "movingCapacity0"})
