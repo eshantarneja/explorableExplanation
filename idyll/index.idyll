@@ -44,7 +44,7 @@ As mentioned previously, the key parts of network graphs are nodes, edges, and c
 
 There are two key nodes to be aware of: the source(S) and the sink(T). The source is where the flow starts from in the network, and the sink is where in "drains out of". The other nodes in between are stops along the way.
 
-Although network graphs may have undirected edges, the graphs specific to flow networks only contain directed edges.  This means that flow can only move one direction through an edge. 
+Although network graphs may have undirected edges, the graphs specific to flow networks only contain directed edges.  This means that flow can only move one direction through an edge.
 
 Additionally, each edge within the network has a fixed capacity. The amount of flow through an edge cannot exceed the capacity of the edge.
 
@@ -74,7 +74,7 @@ For those who are more mathematically inclined, you may think of a flow network 
 
 ## Maximum Flow Problem
 
-The maxiumum flow problem simply asks, given one of these flow networks with vertices, edges, and capacities - what is the maximum amount of flow that can be pushed through it? 
+The maxiumum flow problem simply asks, given one of these flow networks with vertices, edges, and capacities - what is the maximum amount of flow that can be pushed through it?
 
 There are two main constraints that your "maximum flow" needs to follow to be considered a true maximum flow. Mathmatically speaking: An st-flow, [Equation] f [/Equation], is a function that satisfies the following contraints:
 
@@ -141,12 +141,12 @@ Lets see how this process would work below!
   [greedyGraph className:"d3-component" state:`greedyGraphState` /]
 [/Graphic]
 
-[button className:"simpleExample" onClick:`greedyGraphState = 1`] Play Animation [/button]
+[button className:"simpleExample" onClick:`greedyGraphState += 1`] Play Animation [/button]
 
 
 Given the path that greedy returns, only 10 units of flow make it to the end, which is far below our goal of 15!
 
-While greedy is a simple method that will allow us to push flow through a network, in many cases like this a greedy solve is sub-optimal.  
+While greedy is a simple method that will allow us to push flow through a network, in many cases like this a greedy solve is sub-optimal.
 
 Accordingly, there exists a better path that is able to push additional flow optimally through the network. To find this path, we need to find an approach that allows us to "back track", and remove flow in our current path so we can push it somewhere better.
 
@@ -204,7 +204,7 @@ function: FordFulkerson(Graph G, Node S, Node T):
         Update residual network graph
     return
 ```
-In this implementation of the Ford-Fulkerson algorithm, the maximum flow will be reached when no more flow augmenting paths can be found in the graph. 
+In this implementation of the Ford-Fulkerson algorithm, the maximum flow will be reached when no more flow augmenting paths can be found in the graph.
 
 Here is an example of a complete run through of the algorithm, where you can see the maximum flow of 15 is reached!:
 
@@ -278,13 +278,13 @@ Using the Ford Fulkerson Algorithm, calculate the flow through each edge needed 
 
 
 
-S->A: [Range value:sa min:0 max:saMax /] [Display className:"rightMarg" value:sa /] S->C: [Range value:sc min:0 max:scMax /] [Display className:"rightMarg" value:sc /] 
+S->A: [Range value:sa min:0 max:saMax /] [Display className:"rightMarg" value:sa /] S->C: [Range value:sc min:0 max:scMax /] [Display className:"rightMarg" value:sc /]
 
-A->B: [Range value:ab min:0 max:abMax /][Display className:"rightMarg" value:ab /] A->C: [Range value:ac min:0 max:acMax /] [Display value:ac /] 
+A->B: [Range value:ab min:0 max:abMax /][Display className:"rightMarg" value:ab /] A->C: [Range value:ac min:0 max:acMax /] [Display value:ac /]
 
 B->T: [Range value:bt min:0 max:btMax /] [Display className:"rightMarg" value:bt /] C->D: [Range value:cd min:0 max:cdMax/] [Display value:cd /]
 
-C->B: [Range value:cb min:0 max:cbMax/] [Display className:"rightMarg" value:cb /] D->B: [Range value:db min:0 max:dbMax /] [Display value:db /] 
+C->B: [Range value:cb min:0 max:cbMax/] [Display className:"rightMarg" value:cb /] D->B: [Range value:db min:0 max:dbMax /] [Display value:db /]
 
 D->T: [Range value:dt min:0 max:dtMax /] [Display value:dt /]
 
@@ -293,7 +293,7 @@ D->T: [Range value:dt min:0 max:dtMax /] [Display value:dt /]
 [var name:"submit" value:0 /]
 [var name:"show" value:0 /]
 
-[button  className:"helpButton" onClick:`submit += 1, show=0`]Submit[/button] 
+[button  className:"helpButton" onClick:`submit += 1, show=0`]Submit[/button]
 [button  className:"helpButton" onClick:`sa = 0, sc = 0, ab = 0, ac = 0, bt = 0, cd =0, db=0, dt = 0, cb = 0,submit=0, show=0`] Reset [/button] [button  className:"helpButton" onClick:`show = 1, sa = 9, sc = 3, ab = 8, ac = 9, bt = 9, cd =3, db=0, dt = 3, cb = 1`]Show Answer[/button]
 
 [Conditional if: `submit>0`][Conditional if: `sa==9`][Conditional if: `sc==3`][Conditional if: `ab==8`][Conditional if: `ac==1`][Conditional if: `bt==9`][Conditional if: `cd==3`][Conditional if: `db==0`][Conditional if: `dt==3`][Conditional if: `cb==1`][Display value:yes /][/Conditional][/Conditional][/Conditional][/Conditional][/Conditional][/Conditional][/Conditional][/Conditional][/Conditional][/Conditional]
@@ -304,9 +304,3 @@ D->T: [Range value:dt min:0 max:dtMax /] [Display value:dt /]
 [Graphic className:"new-component-container"]
     [fordFulkTest sa:`sa` sc:`sc` ab:`ab` ac:`ac` bt:`bt` cd:`cd` db:`db` dt:`dt` dt:`dt` cb:`cb` saMax:`saMax` scMax:`scMax` abMax:`abMax` acMax:`acMax` btMax:`btMax` cdMax:`cdMax` dbMax:`dbMax` dtMax:`dtMax` cbMax:`cbMax` show:`show` /]
 [/Graphic]
-
-
-
-
-
-
