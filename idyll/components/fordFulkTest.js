@@ -42,6 +42,7 @@ class fordFulkTest extends D3Component {
               { source: 3, target: 4, capacity: props.cdMax, id: 5},
               { source: 4, target: 2, capacity: props.dbMax, id: 6},
               { source: 4, target: 5, capacity: props.dtMax, id: 7},
+              { source: 3, target: 2, capacity: props.cbMax, id: 8}
     ];
 
     var cuts = [
@@ -110,7 +111,7 @@ class fordFulkTest extends D3Component {
     .attr("y", function(d){ return (nodes[d.target].y + nodes[d.source].y)/2})
     .attr("id", function(d) {return "movingCapacity"+nodes[d.source].text+nodes[d.target].text;})
     .text(function(d){return "0/"+d.capacity})
-    .attr("font-size", "20px")
+    .attr("font-size", "10px")
     .attr("fill","red")
     .attr("class","movingCapacity")
     .attr("opacity",1)
@@ -122,6 +123,16 @@ class fordFulkTest extends D3Component {
   update(props, oldProps) {
 
   	console.log(props)
+
+  	if(props.show==1){
+  		this.svg.selectAll('[class^="movingCapacity"]')
+    	.attr("fill","green")
+  	}
+  	else{
+  		this.svg.selectAll('[class^="movingCapacity"]')
+    	.attr("fill","red")
+
+  	}
 
     this.svg
     .selectAll('#movingCapacitySA')
@@ -158,6 +169,10 @@ class fordFulkTest extends D3Component {
     this.svg
     .selectAll('#movingCapacityDT')
     .text(props.dt + "/" + props.dtMax)
+
+    this.svg
+    .selectAll('#movingCapacityCB')
+    .text(props.cb + "/" + props.cbMax)
 
 
 

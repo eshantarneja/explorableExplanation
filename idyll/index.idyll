@@ -176,61 +176,51 @@ Use the Min Cut Method to calulate the Maximum Flow in the following network:  [
 Using the Ford Fulkerson Algorithm, calculate the flow through each edge needed to achieve maximum flow:
 
 [var name:"sa" value:0 /]
-[var name:"saMax" value:8 /]
+[var name:"saMax" value:9 /]
 [var name:"sc" value:0 /]
-[var name:"scMax" value:12 /]
+[var name:"scMax" value:9 /]
 [var name:"ab" value:0 /]
-[var name:"abMax" value:15 /]
+[var name:"abMax" value:8 /]
 [var name:"ac" value:0 /]
 [var name:"acMax" value:10 /]
 [var name:"bt" value:0 /]
-[var name:"btMax" value:18 /]
+[var name:"btMax" value:10 /]
 [var name:"cd" value:0 /]
-[var name:"cdMax" value:17 /]
+[var name:"cdMax" value:3 /]
+[var name:"cb" value:0 /]
+[var name:"cbMax" value:1 /]
 [var name:"db" value:0 /]
-[var name:"dbMax" value:16 /]
+[var name:"dbMax" value:8 /]
 [var name:"dt" value:0 /]
-[var name:"dtMax" value:15 /]
+[var name:"dtMax" value:7 /]
 
 
-S->A: [Range value:sa min:0 max:saMax /]
-[Display value:sa /]
 
-S->C: [Range value:sc min:0 max:scMax /]
-[Display value:sc /]
+S->A: [Range value:sa min:0 max:saMax /] [Display className:"rightMarg" value:sa /] S->C: [Range value:sc min:0 max:scMax /] [Display className:"rightMarg" value:sc /] 
 
-A->B: [Range value:ab min:0 max:abMax /]
-[Display value:ab /]
+A->B: [Range value:ab min:0 max:abMax /][Display className:"rightMarg" value:ab /] A->C: [Range value:ac min:0 max:acMax /] [Display value:ac /] 
 
-A->C: [Range value:ac min:0 max:acMax /]
-[Display value:ac /]
+B->T: [Range value:bt min:0 max:btMax /] [Display className:"rightMarg" value:bt /] C->D: [Range value:cd min:0 max:cdMax/] [Display value:cd /]
 
-B->T: [Range value:bt min:0 max:btMax /]
-[Display value:bt /]
+C->B: [Range value:cb min:0 max:cbMax/] [Display className:"rightMarg" value:cb /] D->B: [Range value:db min:0 max:dbMax /] [Display value:db /] 
 
-C->D: [Range value:cd min:0 max:cdMax/]
-[Display value:cd /]
-
-D->B: [Range value:db min:0 max:dbMax /]
-[Display value:db /]
-
-D->T: [Range value:dt min:0 max:dtMax /]
-[Display value:dt /]
+D->T: [Range value:dt min:0 max:dtMax /] [Display value:dt /]
 
 [var name:"yes" value:"Correct!" /]
-[var name:"no" value:"Incorrect! Try Again" /]
+[var name:"no" value:"Incorrect! Click reset and try again, or click show answer for help." /]
 [var name:"submit" value:0 /]
+[var name:"show" value:0 /]
 
-[button  className:"helpButton" onClick:`submit += 1`]Submit[/button]
+[button  className:"helpButton" onClick:`submit += 1, show=0`]Submit[/button] 
+[button  className:"helpButton" onClick:`sa = 0, sc = 0, ab = 0, ac = 0, bt = 0, cd =0, db=0, dt = 0, cb = 0,submit=0, show=0`] Reset [/button] [button  className:"helpButton" onClick:`show = 1, sa = 9, sc = 3, ab = 8, ac = 9, bt = 9, cd =3, db=0, dt = 3, cb = 1`]Show Answer[/button]
 
+[Conditional if: `submit>0`][Conditional if: `sa==9`][Conditional if: `sc==3`][Conditional if: `ab==8`][Conditional if: `ac==1`][Conditional if: `bt==9`][Conditional if: `cd==3`][Conditional if: `db==0`][Conditional if: `dt==3`][Conditional if: `cb==1`][Display value:yes /][/Conditional][/Conditional][/Conditional][/Conditional][/Conditional][/Conditional][/Conditional][/Conditional][/Conditional][/Conditional]
 
-[Conditional if: `ac==5`][Conditional if: `ab==5`][Conditional if: `submit>0`][Display value:yes /][/Conditional][/Conditional][/Conditional]
-
-[Conditional if: `submit>0`][Conditional if: `ac!=5` if: `ab!=5`][Display value:no /][/Conditional][/Conditional]
+[Conditional if: `submit>0`][Conditional if: `sa!=9` if: `sc!=3` if: `ab!=8` if: `ac!=9` if: `bt!=9` if: `cd!=3` if: `cb!=1` if: `db!=0` if: `dt!=3`][Display value:no /][/Conditional][/Conditional]
 
 
 [Graphic className:"new-component-container"]
-    [fordFulkTest sa:`sa` sc:`sc` ab:`ab` ac:`ac` bt:`bt` cd:`cd` db:`db` dt:`dt` saMax:`saMax` scMax:`scMax` abMax:`abMax` acMax:`acMax` btMax:`btMax` cdMax:`cdMax` dbMax:`dbMax` dtMax:`dtMax` /]
+    [fordFulkTest sa:`sa` sc:`sc` ab:`ab` ac:`ac` bt:`bt` cd:`cd` db:`db` dt:`dt` dt:`dt` cb:`cb` saMax:`saMax` scMax:`scMax` abMax:`abMax` acMax:`acMax` btMax:`btMax` cdMax:`cdMax` dbMax:`dbMax` dtMax:`dtMax` cbMax:`cbMax` show:`show` /]
 [/Graphic]
 
 

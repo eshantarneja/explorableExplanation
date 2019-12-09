@@ -29,9 +29,8 @@
   margin-right: 0px;
   margin-left: 10px;
 }
-.condition{
-  border: 1px solid;
-  color: red;
+.rightMarg{
+  margin-right: 20px;
 }
 @media only screen and (max-width: 600px) {
   .idyll-scroll .idyll-text-container {
