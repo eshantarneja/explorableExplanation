@@ -22,6 +22,16 @@
 #idyll-scroll-1 {
   background: #fffcc1;
 }
+.helpButton{
+  display: inline-block;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-right: 0px;
+  margin-left: 10px;
+}
+.rightMarg{
+  margin-right: 20px;
+}
 @media only screen and (max-width: 600px) {
   .idyll-scroll .idyll-text-container {
     max-width: 57vw;
@@ -34,6 +44,7 @@
     width: 31vw;
     margin-left: 65vw;
   }
+
 }
 .net_img{
   margin-top:-15px;
