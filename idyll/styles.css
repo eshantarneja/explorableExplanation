@@ -122,6 +122,59 @@
   background-color: #4CAF50; /* Green */
   color: white;
 }
+.notMaxFlow{
+  background-color: white;
+  color: black;
+  border: 2px solid #4CAF50; /* Green */
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 5px;
+
+/*  margin-left: 30%;
+  margin-right: 30%;*/
+}
+.notMaxFlow:hover {
+  background-color: #4CAF50; /* Green */
+  color: white;
+}
+.maxFlow{
+  background-color: white;
+  color: black;
+  border: 2px solid #4CAF50; /* Green */
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 5px;
+/*  margin-left: 30%;
+  margin-right: 30%;*/
+}
+.maxFlow:hover {
+  background-color: #4CAF50; /* Green */
+  color: white;
+}
+.capEx{
+  background-color: white;
+  color: black;
+  border: 2px solid #4CAF50; /* Green */
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 5px;
+  margin-left: -6px;
+/*  margin-left: 30%;
+  margin-right: 30%;*/
+}
+.capEx:hover {
+  background-color: #4CAF50; /* Green */
+  color: white;
+}
 .simpleExample{
   background-color: white;
   color: black;
@@ -138,3 +191,6 @@
   background-color: #4CAF50; /* Green */
   color: white;
 }
+
+
+
