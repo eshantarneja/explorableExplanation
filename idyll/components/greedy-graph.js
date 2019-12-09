@@ -299,10 +299,14 @@ class greedyGraph extends D3Component {
       var t5 = 5000;
       var t6 = 6000;
       var t7 = 7000;
-      var t8 = 1200;
+      var t8 = 8000;
+      var t9 = 9000;
+      var t10 = 10000;
+      var t11 = 11000;
+      var t12 = 16000;
 
       this.svg
-      .selectAll("line").filter(function(d) {return this.id == "line0"})
+      .selectAll("line").filter(function(d) {return this.id == "line1"})
       .transition()
       .delay(t1)
       .attr("stroke", "orange")
@@ -310,19 +314,13 @@ class greedyGraph extends D3Component {
       .attr("opacity", 1)
 
       this.svg
-      .selectAll("text").filter(function(d) {return this.id == "movingCapacity0"})
+      .selectAll("text").filter(function(d) {return this.id == "movingCapacity1"})
       .transition()
       .delay(t1)
-      .text("5/10")
-
-      // this.svg
-      // .selectAll("text").filter(function(d) {return this.id == "movingCapacityResidual0"})
-      // .transition()
-      // .delay(t1)
-      // .text("5/10")
+      .text("7/8")
 
       this.svg
-      .selectAll("line").filter(function(d) {return this.id == "line2"})
+      .selectAll("line").filter(function(d) {return this.id == "line5"})
       .transition()
       .delay(t2)
       .attr("stroke", "orange")
@@ -330,16 +328,10 @@ class greedyGraph extends D3Component {
       .attr("opacity", 1)
 
       this.svg
-      .selectAll("text").filter(function(d) {return this.id == "movingCapacity2"})
+      .selectAll("text").filter(function(d) {return this.id == "movingCapacity5"})
       .transition()
       .delay(t2)
-      .text("5/5")
-
-      // this.svg
-      // .selectAll("text").filter(function(d) {return this.id == "movingCapacityResidual2"})
-      // .transition()
-      // .delay(t2)
-      // .text("0/5")
+      .text("7/10")
 
       this.svg
       .selectAll("line").filter(function(d) {return this.id == "line6"})
@@ -353,16 +345,10 @@ class greedyGraph extends D3Component {
       .selectAll("text").filter(function(d) {return this.id == "movingCapacity6"})
       .transition()
       .delay(t3)
-      .text("5/8")
-
-      // this.svg
-      // .selectAll("text").filter(function(d) {return this.id == "movingCapacityResidual6"})
-      // .transition()
-      // .delay(t3)
-      // .text("3/8")
+      .text("7/8")
 
       this.svg
-      .selectAll("line").filter(function(d) {return this.id == "line7"})
+      .selectAll("line").filter(function(d) {return this.id == "line4"})
       .transition()
       .delay(t4)
       .attr("stroke", "orange")
@@ -370,80 +356,88 @@ class greedyGraph extends D3Component {
       .attr("opacity", 1)
 
       this.svg
-      .selectAll("text").filter(function(d) {return this.id == "movingCapacity7"})
+      .selectAll("text").filter(function(d) {return this.id == "movingCapacity4"})
       .transition()
       .delay(t4)
-      .text("5/10")
-
-      // this.svg
-      // .selectAll("text").filter(function(d) {return this.id == "movingCapacityResidual7"})
-      // .transition()
-      // .delay(t4)
-      // .text("5/10")
-
-      this.svg
-      .selectAll("line").filter(function(d) {return this.id == "line1"})
-      .transition()
-      .delay(t5)
-      .attr("stroke", "orange")
-      .attr("stroke-width",3)
-      .attr("opacity", 1)
+      .text("7/7")
 
       this.svg
       .selectAll("text").filter(function(d) {return this.id == "movingCapacity1"})
       .transition()
       .delay(t5)
-      .text("5/8")
-
-      // this.svg
-      // .selectAll("text").filter(function(d) {return this.id == "movingCapacityResidual1"})
-      // .transition()
-      // .delay(t5)
-      // .text("3/8")
-
-      this.svg
-      .selectAll("line").filter(function(d) {return this.id == "line5"})
-      .transition()
-      .delay(t6)
-      .attr("stroke", "orange")
-      .attr("stroke-width",3)
-      .attr("opacity", 1)
+      .text("8/8")
 
       this.svg
       .selectAll("text").filter(function(d) {return this.id == "movingCapacity5"})
       .transition()
       .delay(t6)
-      .text("5/10")
+      .text("8/10")
 
-      // this.svg
-      // .selectAll("text").filter(function(d) {return this.id == "movingCapacityResidual5"})
-      // .transition()
-      // .delay(t6)
-      // .text("5/10")
+      this.svg
+      .selectAll("line").filter(function(d) {return this.id == "line7"})
+      .transition()
+      .delay(t7)
+      .attr("stroke", "orange")
+      .attr("stroke-width",3)
+      .attr("opacity", 1)
 
       this.svg
       .selectAll("text").filter(function(d) {return this.id == "movingCapacity7"})
       .transition()
       .delay(t7)
+      .text("1/10")
+
+      this.svg
+      .selectAll("line").filter(function(d) {return this.id == "line0"})
+      .transition()
+      .delay(t8)
+      .attr("stroke", "orange")
+      .attr("stroke-width",3)
+      .attr("opacity", 1)
+
+      this.svg
+      .selectAll("text").filter(function(d) {return this.id == "movingCapacity0"})
+      .transition()
+      .delay(t8)
+      .text("2/10")
+
+      this.svg
+      .selectAll("line").filter(function(d) {return this.id == "line3"})
+      .transition()
+      .delay(t9)
+      .attr("stroke", "orange")
+      .attr("stroke-width",3)
+      .attr("opacity", 1)
+
+      this.svg
+      .selectAll("text").filter(function(d) {return this.id == "movingCapacity3"})
+      .transition()
+      .delay(t9)
+      .text("2/2")
+
+      this.svg
+      .selectAll("text").filter(function(d) {return this.id == "movingCapacity5"})
+      .transition()
+      .delay(t10)
       .text("10/10")
 
-      // this.svg
-      // .selectAll("text").filter(function(d) {return this.id == "movingCapacityResidual7"})
-      // .transition()
-      // .delay(t7)
-      // .text("0/10")
+      this.svg
+      .selectAll("text").filter(function(d) {return this.id == "movingCapacity7"})
+      .transition()
+      .delay(t11)
+      .text("3/10")
 
       this.svg
       .selectAll("line")
       .transition()
-      .delay(t8)
+      .delay(t12)
       .attr("stroke", "grey")
       .attr("stroke-width",2)
 
       this.svg
       .selectAll(".movingCapacity")
       .transition()
-      .delay(t8)
+      .delay(t12)
       .text(function(d){return "0/"+d.capacity})
 
       // this.svg
